@@ -2,79 +2,110 @@
 <html lang="en">
 <head>
 
-    <script>
-    // Initialize CookieConsent banner
-    window.addEventListener("load", function () {
-      window.cookieconsent.initialise({
-        palette: {
-          popup: { background: "#000000" },
-          button: { background: "#f1d600", text: "#000000" }
-        },
-        theme: "classic",
-        type: "opt-in", // IMPORTANT: analytics only after consent
-        content: {
-          message: "This website uses cookies for analytics to help me understand traffic. You can choose whether to allow analytics cookies.",
-          dismiss: "Decline",
-          allow: "Allow analytics",
-          link: "Learn more",
-          href: "#" // later you can add a privacy policy page here
-        },
-
-        // Runs when the banner first loads
-        onInitialise: function (status) {
-          var didConsent = this.hasConsented();
-          if (didConsent) {
-            enableAnalytics();
-          }
-        },
-
-        // Runs when user clicks Allow or Decline
-        onStatusChange: function (status, chosenBefore) {
-          var didConsent = this.hasConsented();
-          if (didConsent) {
-            enableAnalytics();
-          } else {
-            if (window.gtag) {
-              gtag('consent', 'update', {
-                'analytics_storage': 'denied'
-              });
-            }
-          }
-        }
-      });
-    });
-
-    // ---- Google Analytics + Consent Mode ----
-
-    // Load GA4 script
-    (function () {
-      var gaScript = document.createElement('script');
-      gaScript.async = true;
-      gaScript.src = "https://www.googletagmanager.com/gtag/js?id=G-4GR6F3D8H0";
-      document.head.appendChild(gaScript);
-    })();
-
-    // Setup dataLayer + default consent (DENIED)
+<!-- Google Analytics + Consent Mode -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4GR6F3D8H0"></script>
+  <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
+    function gtag(){ dataLayer.push(arguments); }
 
     // Default: analytics OFF until user accepts
     gtag('consent', 'default', {
       'analytics_storage': 'denied'
     });
 
-    // Called when user accepts cookies
+    // Enable analytics after consent
     function enableAnalytics() {
       gtag('consent', 'update', {
         'analytics_storage': 'granted'
       });
-
       gtag('js', new Date());
       gtag('config', 'G-4GR6F3D8H0');
     }
   </script>
 
+  <!-- Simple Cookie Banner styles -->
+  <style>
+    #cookie-banner {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: none; /* will be shown by JS */
+      padding: 12px 16px;
+      background: rgba(0, 0, 0, 0.9);
+      color: #ffffff;
+      font-size: 14px;
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
 
+    #cookie-banner .cookie-text {
+      max-width: 600px;
+    }
+
+    #cookie-banner button {
+      border: none;
+      padding: 8px 14px;
+      cursor: pointer;
+      font-size: 13px;
+      border-radius: 4px;
+    }
+
+    #cookie-accept {
+      background: #f1d600;
+      color: #000000;
+      font-weight: 600;
+    }
+
+    #cookie-decline {
+      background: #444444;
+      color: #ffffff;
+    }
+  </style>
+
+  <!-- Cookie Banner Logic -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var banner = document.getElementById('cookie-banner');
+      var acceptBtn = document.getElementById('cookie-accept');
+      var declineBtn = document.getElementById('cookie-decline');
+
+      if (!banner || !acceptBtn || !declineBtn) return;
+
+      var consent = localStorage.getItem('cookie_consent');
+
+      if (consent === 'accepted') {
+        banner.style.display = 'none';
+        enableAnalytics();
+        return;
+      }
+
+      if (consent === 'declined') {
+        banner.style.display = 'none';
+        return;
+      }
+
+      // No choice yet → show banner
+      banner.style.display = 'flex';
+
+      acceptBtn.addEventListener('click', function () {
+        localStorage.setItem('cookie_consent', 'accepted');
+        banner.style.display = 'none';
+        enableAnalytics();
+      });
+
+      declineBtn.addEventListener('click', function () {
+        localStorage.setItem('cookie_consent', 'declined');
+        banner.style.display = 'none';
+        // analytics stays denied
+      });
+    });
+  </script>
+
+    
   
   
   <meta charset="UTF-8" />
@@ -565,6 +596,18 @@
   </style>
 </head>
 <body>
+
+   <!-- Cookie Banner -->
+  <div id="cookie-banner">
+    <div class="cookie-text">
+      This website uses cookies for analytics to help me understand traffic and improve my content.
+      You can choose whether to allow analytics cookies.
+    </div>
+    <button id="cookie-accept">Allow analytics</button>
+    <button id="cookie-decline">Decline</button>
+  </div>
+
+   
   <div class="shell">
     <header class="nav">
       <div class="nav-left">
