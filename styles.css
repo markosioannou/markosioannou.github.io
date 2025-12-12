@@ -118,9 +118,22 @@ body {
   display: none;
 }
 
+.nav-toggle {
+  display: inline-flex;
+}
+
+/* Desktop only */
 @media (min-width: 900px) {
   .nav-cta {
     display: inline-flex;
+  }
+
+  .nav-links {
+    display: flex;
+  }
+
+  .nav-toggle {
+    display: none;
   }
 }
 
