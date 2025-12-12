@@ -37,7 +37,10 @@ body {
 .shell {
   width: 100%;
   max-width: 1120px;
-  padding: 1.5rem 1.25rem 3rem;
+  margin: 0 auto;
+  padding-top: 2.5rem;
+  padding-inline: 1.25rem;
+  padding-bottom: 3rem;
   display: flex;
   flex-direction: column;
   gap: 2rem;
@@ -55,13 +58,18 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
-  /* New sticky-header functionality */
+
   position: sticky;
-  top: 0;
+  top: 1rem;                /* float a bit */
   z-index: 50;
-  background: rgba(2, 6, 23, 0.92);
-  backdrop-filter: blur(12px);
-  padding-block: 0.75rem;
+
+  padding: 0.7rem 1rem;
+  border-radius: 999px;     /* pill */
+
+  background: rgba(15, 23, 42, 0.55);  /* softer */
+  border: 1px solid rgba(148, 163, 184, 0.12);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25);
 }
 
 .nav-left {
