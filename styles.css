@@ -118,6 +118,12 @@ body {
   display: none;
 }
 
+@media (min-width: 900px) {
+  .nav-cta {
+    display: inline-flex;
+  }
+}
+
 .nav-toggle {
   display: inline-flex;
   align-items: center;
