@@ -108,6 +108,11 @@ body {
   color: var(--text);
 }
 
+@media (max-width: 767px) {
+  .nav-cta {
+    display: none !important;
+  }
+}
 @media (min-width: 768px) {
   .nav-toggle { display: none; }
   .mobile-nav { display: none; }
