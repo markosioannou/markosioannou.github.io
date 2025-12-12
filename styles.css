@@ -639,10 +639,17 @@ h1 {
 
 .nav { top: var(--nav-offset); pointer-events: auto; }
 
+/* Make the dropdown follow the viewport (works when scrolled) */
 .mobile-nav{
+  position: fixed; /* <-- key change */
   top: calc(var(--nav-offset) + var(--nav-height) + var(--nav-gap));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(1120px, calc(100% - 2.5rem)); /* matches your shell width + side padding vibe */
+
   padding: 0.75rem;
   pointer-events: auto;
+  z-index: 9998; /* keep under toggle (10000) but above content */
 }
 
 .mobile-nav[hidden]{
