@@ -3,12 +3,17 @@
   Edit this file to update previews across the entire site
 {%- endcomment -%}
 
-<!-- Primary SEO -->
+<!-- =====================
+     Primary SEO
+===================== -->
 <title>{{ page.title | default: site.title }}</title>
 <meta name="description" content="{{ page.description | default: site.description }}" />
 <link rel="canonical" href="{{ site.url }}{{ page.url }}" />
 
-<!-- Open Graph (iMessage / WhatsApp / LinkedIn / Slack) -->
+<!-- =====================
+     Open Graph
+     (iMessage / WhatsApp / LinkedIn / Slack)
+===================== -->
 <meta property="og:type" content="website" />
 <meta property="og:site_name" content="{{ site.title }}" />
 <meta property="og:title" content="{{ page.og_title | default: page.title | default: site.title }}" />
@@ -17,14 +22,37 @@
 <meta property="og:image" content="{{ site.url }}/assets/images/preview.jpg" />
 <meta property="og:image:width" content="1200" />
 <meta property="og:image:height" content="630" />
+<meta property="og:image:alt" content="Markos Ioannou – Data Analytics & Machine Learning Portfolio" />
 
-<!-- X / Twitter -->
+<!-- =====================
+     X / Twitter
+===================== -->
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:title" content="{{ page.twitter_title | default: page.title | default: site.title }}" />
 <meta name="twitter:description" content="{{ page.twitter_description | default: page.description | default: site.description }}" />
 <meta name="twitter:image" content="{{ site.url }}/assets/images/preview.jpg" />
 
-<!-- Icons -->
+<!-- =====================
+     Icons & UI polish
+===================== -->
 <link rel="icon" href="/assets/icons/favicon.png" />
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/icons/apple-touch-icon.png" />
 <meta name="theme-color" content="#020617" />
+
+<!-- =====================
+     Structured Data (JSON-LD)
+     Google / SEO
+===================== -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "{{ site.title }}",
+  "url": "{{ site.url }}",
+  "sameAs": [
+    "https://www.linkedin.com/in/markos-ioannou"
+  ],
+  "jobTitle": "Data Analytics & Machine Learning & Bioinformatics",
+  "email": "mailto:markos@markos-ioannou.com"
+}
+</script>
