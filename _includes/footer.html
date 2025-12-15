@@ -1,19 +1,41 @@
+{%- comment -%}
+  Social + SEO preview metadata
+  Edit this file to update previews across the entire site
+{%- endcomment -%}
+ 
+<!-- =====================
+     FOOTER
+     Shared across site
+===================== -->
 <footer class="footer">
+  
+  <!-- Left: copyright / ownership -->
   <div class="footer-top">
     © <span id="year"></span> Markos Ioannou
   </div>
 
+  <!-- Center: hosting / build info -->
   <div class="contact-tag">
     Built with GitHub Pages · Hosted at <code>markos-ioannou.com</code>
   </div>
 
+  <!-- Right: primary contact links -->
   <div class="footer-links">
     <a href="mailto:markos@markos-ioannou.com">Email</a>
     <a href="https://github.com/markosioannou" target="_blank" rel="noreferrer">GitHub</a>
     <a href="https://www.linkedin.com/in/markosioannou" target="_blank" rel="noreferrer">LinkedIn</a>
   </div>
+
 </footer>
 
+<!-- =====================
+     Footer utilities
+     Auto-update copyright year
+===================== -->
 <script>
-  document.getElementById("year").textContent = new Date().getFullYear();
+  // Keep copyright year current without manual updates
+  const yearEl = document.getElementById("year");
+  if (yearEl) {
+    yearEl.textContent = new Date().getFullYear();
+  }
 </script>
