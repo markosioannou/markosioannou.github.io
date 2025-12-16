@@ -5,7 +5,6 @@
 ![Jekyll](https://img.shields.io/badge/Jekyll-Static%20Site-red)
 ![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-orange)
 ![Cloudflare Turnstile](https://img.shields.io/badge/Cloudflare-Turnstile-yellow)
-![License](https://img.shields.io/badge/License-MIT-blue)
 
 This repository contains the source code for my personal website and professional portfolio:
 
