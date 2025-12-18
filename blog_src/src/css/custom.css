@@ -539,3 +539,100 @@ nav.theme-layout-navbar.navbar .mk-pill-btn {
     left: 16px !important; /* tends to measure as 17px due to rounding */
   }
 }
+
+/* Blog list: make each post look like a "panel" card */
+.blog-wrapper main .blog-post-item,
+.blog-wrapper main article.mk-post-card,
+.blog-wrapper main .mk-post-card article {
+  background: radial-gradient(circle at top left, rgba(56, 189, 248, 0.04), transparent 60%),
+              radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.03), transparent 55%),
+              rgba(15, 23, 42, 0.96);
+  border: 1px solid rgba(31, 41, 55, 0.9);
+  border-radius: 1.5rem;
+  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.85);
+  padding: 1.4rem 1.4rem 1.2rem;
+}
+
+html.blog-wrapper.blog-list-page .mk-post-card {
+  margin: 0 0 30px 0;
+}
+
+/* ==============================
+   DOCS: stop edge-to-edge + add inner padding
+============================== */
+
+/* The docs content wrapper (panel) */
+.theme-doc-markdown {
+  padding: 1.25rem 1.25rem !important;   /* space between border and text */
+  overflow: hidden;                      /* prevents weird bleed */
+}
+
+/* Sometimes the markdown itself has margins that fight the panel */
+.theme-doc-markdown > .markdown {
+  margin: 0 !important;
+}
+
+/* Give a bit more breathing room on desktop */
+@media (min-width: 900px) {
+  .theme-doc-markdown {
+    padding: 1.6rem 1.75rem !important;
+  }
+}
+
+/* If code blocks are “touching” or overflowing */
+.theme-doc-markdown pre {
+  margin: 1rem 0 !important;
+  padding: 1rem !important;
+  border-radius: 1rem;
+  overflow: auto;
+}
+
+/* Docs CATEGORY / generated index pages pane */
+html.docs-wrapper [class*="generatedIndex"],
+html.docs-wrapper .theme-doc-category-generated-index,
+html.docs-wrapper .theme-doc-category-generated-index-page,
+html.docs-wrapper .theme-doc-category {
+  border-radius: var(--radius-xl) !important;
+  border: 1px solid rgba(31, 41, 55, 0.9) !important;
+
+  background:
+    radial-gradient(circle at top left, rgba(56, 189, 248, 0.04), transparent 60%),
+    radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.03), transparent 55%),
+    rgba(15, 23, 42, 0.96) !important;
+
+  backdrop-filter: blur(24px) !important;
+  -webkit-backdrop-filter: blur(24px) !important;
+
+  box-shadow: var(--shadow-soft) !important;
+
+  padding: 1.25rem !important;
+  overflow: hidden !important;
+}
+
+/* If text/cards are touching the edges inside, force inner padding too */
+html.docs-wrapper [class*="generatedIndex"] > * ,
+html.docs-wrapper .theme-doc-category-generated-index > * {
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+}
+
+/* TOC: push it down so it never touches/overlaps the sticky navbar pill */
+:root {
+  --mk-toc-top: calc(var(--mk-sticky-top) + var(--ifm-navbar-height) + 24px);
+}
+
+/* Docusaurus desktop TOC wrapper is the sticky element */
+.theme-doc-toc-desktop {
+  top: var(--mk-toc-top) !important;
+}
+
+/* If the inner TOC itself is sticky in your version, force it too */
+.theme-doc-toc-desktop .table-of-contents {
+  position: sticky !important;
+  top: var(--mk-toc-top) !important;
+}
+
+:root {
+  --mk-doc-pane-top: 1.25rem; /* must match doc pane padding-top */
+}
+

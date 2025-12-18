@@ -87,24 +87,33 @@ body {
   gap: 0.75rem;
 }
 
-/* OG: make logo behave like docu (no white circle) */
+/* OG logo — match docu exactly */
 .logo-circle {
-  background: transparent !important; /* remove the white/grey coin */
-  box-shadow: none !important;        /* optional: if docu has no logo shadow */
-}
+  width: 32px;
+  height: 32px;
 
-/* keep it circular + cropped */
-.logo-circle {
-  overflow: hidden;
+  padding: 0;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+
   border-radius: 999px;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* photo fills it */
+/* Photo fills the circle */
 .logo-circle img {
   width: 100%;
   height: 100%;
   display: block;
+
   object-fit: cover;
+  object-position: center;
+
   border-radius: 999px;
 }
 

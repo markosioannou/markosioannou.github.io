@@ -2,5 +2,18 @@ title: Markos Ioannou · Data & Analytics
 url: https://markos-ioannou.com
 description: Personal website of Markos Ioannou, featuring data analytics and machine learning projects, skills, and experience.
 
+exclude:
+  - node_modules
+  - vendor
+  - .bundle
+  - .jekyll-cache
+  - .sass-cache
+  - .git
+  - Gemfile
+  - Gemfile.lock
+  - package-lock.json
+  - yarn.lock
+  - blog_src
+
 plugins:
   - jekyll-sitemap

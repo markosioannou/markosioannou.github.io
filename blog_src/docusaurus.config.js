@@ -1,96 +1,171 @@
 // @ts-check
-// `@type` JSDoc annotations allow editor autocompletion and type checking
-// (when paired with `@ts-check`).
-// There are various equivalent ways to declare your Docusaurus config.
-// See: https://docusaurus.io/docs/api/docusaurus-config
-
 import {themes as prismThemes} from 'prism-react-renderer';
 
-// This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
+const siteUrl = 'https://markos-ioannou.com';
+const baseUrl = '/blog/';
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+  title: 'Markos Ioannou · Data & Analytics',
+  tagline:
+    'Personal website of Markos Ioannou, featuring data analytics and machine learning projects, skills, and experience.',
   favicon: 'img/favicon.ico',
 
-  // Future flags, see https://docusaurus.io/docs/api/docusaurus-config#future
-  future: {
-    v4: true, // Improve compatibility with the upcoming Docusaurus v4
-  },
+  future: { v4: true },
 
-  // Set the production url of your site here
-  url: 'https://markos-ioannou.com',
-  // Set the /<baseUrl>/ pathname under which your site is served
-  // For GitHub pages deployment, it is often '/<projectName>/'
-  baseUrl: '/blog/', 
+  url: siteUrl,
+  baseUrl,
 
-  // GitHub pages deployment config.
-  // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'markosioannou', // Usually your GitHub org/user name.
-  projectName: 'markosioannou.github.io', // Usually your repo name.
+  organizationName: 'markosioannou',
+  projectName: 'markosioannou.github.io',
 
   onBrokenLinks: 'throw',
 
-  // Even if you don't use internationalization, you can use this field to set
-  // useful metadata like html lang. For example, if your site is Chinese, you
-  // may want to replace "en" with "zh-Hans".
-  i18n: {
-    defaultLocale: 'en',
-    locales: ['en'],
-  },
+  i18n: { defaultLocale: 'en', locales: ['en'] },
+
+  // Inject global <head> tags (your preview.html equivalent)
+  headTags: [
+    // Apple / iOS
+    {
+      tagName: 'link',
+      attributes: {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: `${siteUrl}/assets/icons/apple-touch-icon.png`,
+      },
+    },
+
+    // Favicons
+    {
+      tagName: 'link',
+      attributes: { rel: 'icon', type: 'image/png', sizes: '32x32', href: `${siteUrl}/assets/icons/favicon-32x32.png` },
+    },
+    {
+      tagName: 'link',
+      attributes: { rel: 'icon', type: 'image/png', sizes: '16x16', href: `${siteUrl}/assets/icons/favicon-16x16.png` },
+    },
+
+    // PWA
+    {
+      tagName: 'link',
+      attributes: { rel: 'manifest', href: `${siteUrl}/assets/icons/site.webmanifest` },
+    },
+
+    // Theme color
+    { tagName: 'meta', attributes: { name: 'theme-color', content: '#020617' } },
+
+    // JSON-LD Person
+    {
+      tagName: 'script',
+      attributes: { type: 'application/ld+json' },
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Person',
+        '@id': `${siteUrl}#person`,
+        name: 'Markos Ioannou',
+        url: siteUrl,
+        image: `${siteUrl}/assets/images/profile.jpeg`,
+        jobTitle: 'Data & Analytics · Bioinformatics',
+        description:
+          'Data analytics and machine learning professional with a focus on applied data science, insights, and real-world problem solving.',
+        sameAs: [
+          'https://www.linkedin.com/in/markosioannou',
+          'https://github.com/markosioannou',
+        ],
+        knowsAbout: [
+          'Data Analytics',
+          'Machine Learning',
+          'Data Science',
+          'Python',
+          'SQL',
+          'Statistics',
+          'Data Visualization',
+          'Bioinformatics',
+          'Healthcare Data Science',
+          'Artificial Intelligence',
+        ],
+        mainEntityOfPage: { '@id': `${siteUrl}/#website` },
+        worksFor: { '@id': `${siteUrl}/#organization` },
+      }),
+    },
+
+    // JSON-LD Organization
+    {
+      tagName: 'script',
+      attributes: { type: 'application/ld+json' },
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'Organization',
+        '@id': `${siteUrl}/#organization`,
+        name: 'Markos Ioannou',
+        url: `${siteUrl}/`,
+        logo: `${siteUrl}/assets/images/logo.png`,
+        sameAs: [
+          'https://www.linkedin.com/in/markosioannou',
+          'https://github.com/markosioannou',
+        ],
+        founder: { '@id': `${siteUrl}#person` },
+      }),
+    },
+
+    // JSON-LD WebSite
+    {
+      tagName: 'script',
+      attributes: { type: 'application/ld+json' },
+      innerHTML: JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        '@id': `${siteUrl}/#website`,
+        url: `${siteUrl}/`,
+        name: 'Markos Ioannou',
+        publisher: { '@id': `${siteUrl}/#organization` },
+      }),
+    },
+  ],
 
   presets: [
     [
       'classic',
-      /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      /** @type {import('@docusaurus/preset-classic').Options} */ ({
         docs: {
           sidebarPath: './sidebars.js',
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          //editUrl:
-            //'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
         },
         blog: {
-          routeBasePath: '/',
+          routeBasePath: '/', // blog index at /blog/ (because baseUrl is /blog/)
           showReadingTime: true,
-          feedOptions: {
-            type: ['rss', 'atom'],
-            xslt: true,
-          },
-          // Please change this to your repo.
-          // Remove this to remove the "edit this page" links.
-          //editUrl:
-            //'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
-          // Useful options to enforce blogging best practices
+          feedOptions: { type: ['rss', 'atom'], xslt: true },
           onInlineTags: 'warn',
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
         },
-        theme: {
-          customCss: './src/css/custom.css',
-        },
+        theme: { customCss: './src/css/custom.css' },
       }),
     ],
   ],
 
   themeConfig:
-    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
-    ({
-      // Replace with your project's social card
-      image: 'img/docusaurus-social-card.jpg',
+    /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
+      // Default social card for OG/Twitter (acts like your preview.jpg default)
+      image: '${siteUrl}/assets/images/preview.jpg',
+
+      // Extra global meta defaults
+      metadata: [
+        { name: 'twitter:card', content: 'summary_large_image' },
+      ],
+
       colorMode: {
         respectPrefersColorScheme: true,
         disableSwitch: true,
       },
+
       navbar: {
         title: '',
         logo: {
-          alt: 'My Site Logo',
-          src: 'https://markos-ioannou.com/assets/icons/android-chrome-192x192.png',
+          alt: 'Markos',
+          src: 'https://markos-ioannou.com/assets/icons/android-chrome-512x512.png', // put in blog_src/static/img/logo.png (or change)
+          width: 32,
+          height: 32,
         },
-        
         items: [
           {
             type: 'docSidebar',
@@ -98,7 +173,6 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-
           { to: '/', label: 'Blog', position: 'left' },
 
           {
@@ -116,56 +190,10 @@ const config = {
         ],
       },
 
-      footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'X',
-                href: 'https://x.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
-      },
       prism: {
         theme: prismThemes.github,
         darkTheme: prismThemes.dracula,
       },
-
     }),
 };
 
