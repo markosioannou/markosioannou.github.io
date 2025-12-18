@@ -82,13 +82,15 @@ const config = {
       image: 'img/docusaurus-social-card.jpg',
       colorMode: {
         respectPrefersColorScheme: true,
+        disableSwitch: true,
       },
       navbar: {
-        title: 'My Site',
+        title: '',
         logo: {
           alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'https://markos-ioannou.com/assets/icons/android-chrome-192x192.png',
         },
+        
         items: [
           {
             type: 'docSidebar',
@@ -96,14 +98,24 @@ const config = {
             position: 'left',
             label: 'Tutorial',
           },
-          {to: '/', label: 'Blog', position: 'left'},
+
+          { to: '/', label: 'Blog', position: 'left' },
+
           {
-            href: 'https://github.com/facebook/docusaurus',
-            label: 'GitHub',
+            type: 'html',
             position: 'right',
+            value: `
+              <a href="https://markos-ioannou.com/contact.html"
+                class="mk-pill-btn"
+                aria-label="Available for opportunities">
+                <span class="mk-pill-dot"></span>
+                <span>Available for opportunities</span>
+              </a>
+            `,
           },
         ],
       },
+
       footer: {
         style: 'dark',
         links: [

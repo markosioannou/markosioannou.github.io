@@ -23,3 +23,13 @@ slorber:
     linkedin: sebastienlorber
     github: slorber
     newsletter: https://thisweekinreact.com
+
+markosio:
+  name: Markos Ioannou
+  title: Data & Analytics • Bioinformatics
+  url: https://markos-ioannou.com
+  image_url: https://markos-ioannou.com/assets/images/profile.jpeg
+  socials:
+    linkedin: markosioannou
+    github: markosioannou
+    newsletter: https://markos-ioannou.com

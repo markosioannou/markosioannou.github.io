@@ -1,0 +1,80 @@
+.footer {
+  margin-top: 0.5rem;
+  border-top: 1px solid rgba(31, 41, 55, 0.8);
+  padding-top: 0.75rem;
+
+  /* bottom breathing room */
+  padding-bottom: 2.5rem;
+
+  /* must be transparent to avoid "new gradient" */
+  background: transparent;
+}
+
+@media (min-width: 900px) {
+  .footer {
+    padding-bottom: 4rem;
+  }
+}
+
+/* “Shell” to match your site width */
+.shell {
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+
+  font-size: 0.78rem;
+  color: #9ca3af;
+}
+
+@media (min-width: 900px) {
+  .shell {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+.footerTop {
+  color: #9ca3af;
+}
+
+.contactTag {
+  color: #9ca3af;
+}
+
+.contactTag code {
+  font-size: 0.78rem;
+  background: transparent;
+  padding: 0;
+  color: #cbd5e1;
+}
+
+.footerLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.footerLinks a {
+  color: #9ca3af;
+  text-decoration: none;
+  font-size: 0.78rem;
+  padding-bottom: 1px;
+  border-bottom: 1px dashed rgba(75, 85, 99, 0.8);
+  transition: border-color 160ms ease-out, color 160ms ease-out, transform 160ms ease-out;
+}
+
+.footerLinks a:hover {
+  color: #e5e7eb;
+  border-bottom-style: solid;
+  border-color: rgba(148, 163, 184, 0.95);
+  transform: translateY(-1px);
+}
