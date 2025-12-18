@@ -89,32 +89,20 @@ body {
 
 /* OG logo — match docu exactly */
 .logo-circle {
+  flex: 0 0 auto;          /* don’t stretch in flex */
   width: 32px;
   height: 32px;
-
-  padding: 0;
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-
   border-radius: 999px;
   overflow: hidden;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: grid;
+  place-items: center;
 }
 
-/* Photo fills the circle */
 .logo-circle img {
   width: 100%;
   height: 100%;
   display: block;
-
   object-fit: cover;
-  object-position: center;
-
-  border-radius: 999px;
 }
 
 .logo-circle.logo-photo {
