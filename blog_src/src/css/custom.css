@@ -1,5 +1,5 @@
 /* =========================================================
-   Markos OG theme — Docusaurus skin (CLEAN)
+   Markos OG theme — Docusaurus skin (CLEAN + cohesive)
    Drop-in for: blog_src/src/css/custom.css
    ========================================================= */
 
@@ -7,17 +7,19 @@
    1) DESIGN TOKENS
 ========================================================= */
 :root {
+  /* Core palette */
   --bg: #020617;
   --accent: #38bdf8;
   --text: #e5e7eb;
   --muted: #9ca3af;
-  --shadow-soft: 0 30px 80px rgba(15, 23, 42, 0.85);
 
+  /* Effects */
+  --shadow-soft: 0 30px 80px rgba(15, 23, 42, 0.85);
   --radius-xl: 1.5rem;
   --radius-full: 999px;
-
   --transition-fast: 160ms ease-out;
 
+  /* Layout */
   --shell-max: 1120px;
   --shell-pad: 1.25rem;
   --shell-pad-desktop: 1.5rem;
@@ -25,20 +27,24 @@
   /* Docusaurus navbar height */
   --ifm-navbar-height: 58px;
 
-  /* ===== OG sticky-slide behavior ===== */
-  --mk-page-top-pad: 46px; /* navbar starts lower */
-  --mk-sticky-top: 16px;   /* navbar sticks here */
+  /* “OG sticky-slide behavior” */
+  --mk-page-top-pad: 46px; /* body starts lower */
+  --mk-sticky-top: 16px;   /* pill sticks from top */
 
-  /* ===== Link / button exact geometry ===== */
+  /* Link/button geometry (prevents squashing) */
   --mk-link-font: 13.6px;
-  --mk-link-line: 16px; /* prevents squashing */
+  --mk-link-line: 16px;
   --mk-link-pad-y: 4.8px;
   --mk-link-pad-x: 11.2px;
   --mk-link-border: 1px;
 
-  /* Centering reserves */
+  /* Navbar composition reserves (desktop centering trick) */
   --mk-left-reserve: 230px;  /* brand area */
   --mk-right-reserve: 360px; /* CTA + search */
+
+  /* Navbar pill width model (single source of truth) */
+  --mk-nav-max: 1072px; /* your “exact OG pill width” */
+  --mk-nav-pad: var(--shell-pad); /* responsive outer gutter */
 }
 
 /* =========================================================
@@ -79,7 +85,7 @@ a:hover {
 }
 
 /* =========================================================
-   4) ONE fixed background layer (prevents restart)
+   4) ONE fixed background layer (prevents restart/repaint)
 ========================================================= */
 html,
 body {
@@ -90,8 +96,6 @@ body {
   position: relative;
   min-height: 100vh;
   color: var(--text);
-
-  /* OG “starts lower” */
   padding-top: var(--mk-page-top-pad) !important;
 }
 
@@ -134,10 +138,7 @@ body::before {
   }
 }
 
-/* IMPORTANT:
-   We are converting the navbar to real sticky (not fixed).
-   So remove Docusaurus' content offset that assumes fixed-top.
-*/
+/* We’re using sticky navbar, so remove the fixed-top content offset */
 .main-wrapper {
   padding-top: 0 !important;
   padding-bottom: 3rem;
@@ -150,18 +151,23 @@ body::before {
 }
 
 /* =========================================================
-   6) NAVBAR — frosted pill (OG sticky slide)
+   6) NAVBAR — frosted pill (sticky)
 ========================================================= */
 nav.theme-layout-navbar.navbar.navbar--fixed-top {
   height: var(--ifm-navbar-height) !important;
 
+  /* Make it truly sticky */
   position: sticky !important;
   top: var(--mk-sticky-top) !important;
-  inset-block-start: var(--mk-sticky-top) !important;
 
   z-index: 9999;
 
-  width: min(var(--shell-max), calc(100% - 2 * var(--shell-pad)));
+  /* Single coherent width rule */
+  width: min(
+    var(--mk-nav-max),
+    calc(100% - 2 * var(--mk-nav-pad))
+  ) !important;
+
   margin-inline: auto !important;
 
   border-radius: var(--radius-full) !important;
@@ -176,20 +182,11 @@ nav.theme-layout-navbar.navbar.navbar--fixed-top {
   overflow: hidden;
   isolation: isolate;
 
-  /* prevent “fixed-top” transforms from interfering */
+  /* Prevent “fixed-top” transforms from interfering */
   transform: none !important;
 }
 
-nav.theme-layout-navbar.navbar.navbar--fixed-top .navbar__inner {
-  height: 100% !important;
-  padding-inline: 0.75rem !important;
 
-  display: flex !important;
-  align-items: center !important;
-  gap: 0.75rem !important;
-
-  position: relative !important;
-}
 
 nav.theme-layout-navbar.navbar .navbar__items {
   display: flex !important;
@@ -197,8 +194,7 @@ nav.theme-layout-navbar.navbar .navbar__items {
 }
 
 /* =========================================================
-   7) NAVBAR — Center Tutorial/Blog (DESKTOP)
-   Your DOM: .theme-layout-navbar-left.navbar__items
+   7) NAVBAR — Center Tutorial/Blog (desktop)
 ========================================================= */
 @media (min-width: 900px) {
   nav.theme-layout-navbar.navbar .theme-layout-navbar-left.navbar__items {
@@ -222,32 +218,67 @@ nav.theme-layout-navbar.navbar .navbar__items {
 
   nav.theme-layout-navbar.navbar .theme-layout-navbar-right.navbar__items--right {
     position: absolute !important;
-    right: 0.75rem !important;
+    right: 0rem !important;
     top: 0 !important;
 
     height: 100% !important;
     display: flex !important;
     align-items: center !important;
   }
+
+  /* Slightly larger gutters on desktop */
+  :root {
+    --mk-nav-pad: var(--shell-pad-desktop);
+  }
 }
 
-/* Logo + title sizing */
+/* Logo sizing */
 nav.theme-layout-navbar.navbar .navbar__logo {
   height: 30px !important;
 }
-nav.theme-layout-navbar.navbar .navbar__title {
-  font-size: 0.95rem !important;
-  font-weight: 600 !important;
-  line-height: 1.1 !important;
+
+/* =========================================================
+   8) NAVBAR — Title becomes 2-line block
+   (Note: we hide any original text to avoid duplication)
+========================================================= */
+nav.theme-layout-navbar .navbar__title {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  line-height: 1.05 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+
+  /* Prevent original title text from also rendering */
+  font-size: 0 !important;
 }
 
-/* Burger menu only on mobile */
+nav.theme-layout-navbar .navbar__title::before {
+  content: "Markos Ioannou";
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  color: var(--text) !important;
+  letter-spacing: 0 !important;
+}
+
+nav.theme-layout-navbar .navbar__title::after {
+  content: "Data & Analytics · Bioinformatics";
+  margin-top: 3px !important;
+  font-size: 12px !important;
+  font-weight: 400 !important;
+  color: var(--muted) !important;
+  letter-spacing: 0 !important;
+}
+
+/* =========================================================
+   9) NAVBAR — Burger menu only on mobile
+========================================================= */
 nav.theme-layout-navbar.navbar .navbar__toggle {
   display: inline-flex;
   height: 100% !important;
   align-items: center !important;
   color: var(--text) !important;
 }
+
 @media (min-width: 900px) {
   nav.theme-layout-navbar.navbar .navbar__toggle {
     display: none !important;
@@ -255,7 +286,7 @@ nav.theme-layout-navbar.navbar .navbar__toggle {
 }
 
 /* =========================================================
-   8) NAVBAR — lock link/button geometry (no squashing)
+   10) NAVBAR — lock link/button geometry (no squashing)
 ========================================================= */
 nav.theme-layout-navbar.navbar .navbar__item,
 nav.theme-layout-navbar.navbar .navbar__link {
@@ -263,7 +294,6 @@ nav.theme-layout-navbar.navbar .navbar__link {
   min-height: 0 !important;
 }
 
-/* Links */
 nav.theme-layout-navbar.navbar .navbar__link {
   display: inline-flex !important;
   align-items: center !important;
@@ -271,12 +301,11 @@ nav.theme-layout-navbar.navbar .navbar__link {
   font-size: var(--mk-link-font) !important;
   font-weight: 400 !important;
   line-height: var(--mk-link-line) !important;
-  letter-spacing: normal !important;
 
   padding: var(--mk-link-pad-y) var(--mk-link-pad-x) !important;
 
   box-sizing: border-box !important;
-  border-radius: 999px !important;
+  border-radius: var(--radius-full) !important;
   border: var(--mk-link-border) solid transparent !important;
 
   color: var(--muted) !important;
@@ -297,7 +326,7 @@ nav.theme-layout-navbar.navbar .navbar__link--active {
 }
 
 /* =========================================================
-   9) NAVBAR CTA — Available for opportunities (aligned sizing)
+   11) NAVBAR CTA — Available for opportunities
 ========================================================= */
 nav.theme-layout-navbar.navbar .mk-pill-btn {
   display: inline-flex !important;
@@ -311,7 +340,7 @@ nav.theme-layout-navbar.navbar .mk-pill-btn {
   padding: var(--mk-link-pad-y) var(--mk-link-pad-x) !important;
 
   box-sizing: border-box !important;
-  border-radius: 999px !important;
+  border-radius: var(--radius-full) !important;
   border: 1px solid rgba(148, 163, 184, 0.4) !important;
 
   background: linear-gradient(
@@ -320,16 +349,16 @@ nav.theme-layout-navbar.navbar .mk-pill-btn {
     rgba(15, 23, 42, 0.85)
   ) !important;
 
-  color: #e5e7eb !important;
+  color: var(--text) !important;
   text-decoration: none !important;
 
   box-shadow: 0 10px 30px rgba(15, 23, 42, 0.6) !important;
 
   transition:
-    border-color 160ms ease-out,
-    background 160ms ease-out,
-    transform 160ms ease-out,
-    box-shadow 160ms ease-out;
+    border-color var(--transition-fast),
+    background var(--transition-fast),
+    transform var(--transition-fast),
+    box-shadow var(--transition-fast);
 }
 
 nav.theme-layout-navbar.navbar .mk-pill-btn:hover {
@@ -342,7 +371,7 @@ nav.theme-layout-navbar.navbar .mk-pill-btn:hover {
 nav.theme-layout-navbar.navbar .mk-pill-dot {
   width: 7px !important;
   height: 7px !important;
-  border-radius: 999px !important;
+  border-radius: var(--radius-full) !important;
 
   background: #22c55e !important;
   box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.3) !important;
@@ -351,7 +380,7 @@ nav.theme-layout-navbar.navbar .mk-pill-dot {
 }
 
 /* =========================================================
-   10) BLOG & DOC PANELS (FROSTED)
+   12) BLOG & DOC PANELS (frosted)
 ========================================================= */
 .blog-post-item,
 .theme-doc-markdown,
@@ -371,7 +400,7 @@ nav.theme-layout-navbar.navbar .mk-pill-dot {
 }
 
 /* =========================================================
-   11) SIDEBAR & TOC
+   13) SIDEBAR & TOC
 ========================================================= */
 .theme-doc-sidebar-container,
 .table-of-contents {
@@ -383,7 +412,7 @@ nav.theme-layout-navbar.navbar .mk-pill-dot {
 }
 
 /* =========================================================
-   12) BUTTONS
+   14) BUTTONS
 ========================================================= */
 .button {
   border-radius: var(--radius-full);
@@ -404,14 +433,8 @@ nav.theme-layout-navbar.navbar .mk-pill-dot {
 }
 
 /* =========================================================
-   13) FOOTER
+   15) FOOTER
 ========================================================= */
-.footer,
-.footer__container {
-  background: transparent !important;
-  background-color: transparent !important;
-}
-
 .footer {
   border-top: 1px solid rgba(31, 41, 55, 0.8);
   padding-bottom: 2.5rem;
@@ -443,53 +466,76 @@ nav.theme-layout-navbar.navbar .mk-pill-dot {
   }
 }
 
-/* =========================================
-   NAVBAR — Match OG pill width exactly
-========================================= */
-
-:root {
-  --mk-nav-max: 1072px;   /* exact OG pill width */
-  --mk-nav-gutter: 424px; /* averaged OG side gutter */
+nav.theme-layout-navbar.navbar .mk-pill-btn {
+  padding: 6px 14px !important;   /* was ~4.8px 11.2px */
+  font-size: 13.4px !important;   /* tiny bump */
+  font-weight: 400 !important;    /* slightly stronger than links */
 }
 
+/* 1) Match OG navbar pill padding + gap */
 nav.theme-layout-navbar.navbar.navbar--fixed-top {
-  width: min(
-    var(--mk-nav-max),
-    calc(100% - 2 * var(--mk-nav-gutter))
-  ) !important;
-
-  margin-left: auto !important;
-  margin-right: auto !important;
-
+  padding: 11.2px 16px !important; /* OG: 11.2px 16px */
+  gap: 16px !important;            /* OG: 16px */
+  height: 58.1719px !important;    /* OG measured height (optional but exact) */
 }
 
-
-
-/* Turn the existing title into a 2-line block */
-nav.theme-layout-navbar .navbar__title {
-  display: inline-flex !important;
-  flex-direction: column !important;
-  line-height: 1.05 !important;
-  margin: 0 !important;
+/* Keep inner neutral since you liked it better without the custom block */
+nav.theme-layout-navbar.navbar.navbar--fixed-top .navbar__inner {
   padding: 0 !important;
+  gap: 0 !important;
 }
 
-/* Title line */
-nav.theme-layout-navbar .navbar__title::before {
-  content: "Markos Ioannou";
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: var(--text) !important;
-  letter-spacing: 0 !important;
+/* 2) Match OG CTA pill size */
+nav.theme-layout-navbar.navbar .mk-pill-btn {
+  padding: 7.2px 14.4px !important; /* OG */
+  gap: 6.4px !important;            /* OG */
+  line-height: 16px !important;     /* helps land on OG height */
 }
 
-/* Subtitle line */
-nav.theme-layout-navbar .navbar__title::after {
-  content: "Data & Analytics · Bioinformatics";
-  margin-top: 3px !important;
-  font-size: 12px !important;
+/* 3) Fix the exact 4px inset difference (desktop absolute layout) */
+@media (min-width: 900px) {
+  /* Left inset: 13px -> 17px */
+  nav.theme-layout-navbar.navbar .theme-layout-navbar-left .navbar__brand {
+    left: 17px !important; /* OG leftInset */
+  }
+
+  /* Right inset: 13px -> 17px */
+  nav.theme-layout-navbar.navbar .theme-layout-navbar-right.navbar__items--right {
+    right: 17px !important; /* OG rightInset */
+  }
+}
+
+/* 4) Make the logo match OG (32px circle + shadow) */
+nav.theme-layout-navbar.navbar .navbar__logo,
+nav.theme-layout-navbar.navbar .navbar__logo img {
+  width: 32px !important;
+  height: 32px !important;
+  border-radius: 999px !important;
+  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9) !important; /* OG */
+  object-fit: cover;
+  display: block;
+}
+
+@media (min-width: 900px) {
+  nav.theme-layout-navbar.navbar .mk-pill-btn {
+    transform: translateX(13px) !important; /* 43 -> 17 */
+  }
+}
+
+nav.theme-layout-navbar.navbar .mk-pill-btn {
+  font-size: 12.8px !important;    /* 0.8rem at 16px root */
   font-weight: 400 !important;
-  color: var(--muted) !important;
   letter-spacing: 0 !important;
+  line-height: 16px !important;    /* helps land height */
+}
+nav.theme-layout-navbar.navbar .mk-pill-btn {
+  padding-top: 7px !important;
+  padding-bottom: 7px !important;   /* should usually drop ~0.4px–1px */
+  line-height: 16px !important;
 }
 
+@media (min-width: 900px) {
+  nav.theme-layout-navbar.navbar .theme-layout-navbar-left .navbar__brand {
+    left: 16px !important; /* tends to measure as 17px due to rounding */
+  }
+}
