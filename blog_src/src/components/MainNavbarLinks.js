@@ -6,8 +6,8 @@ const links = [
   {label: 'About', href: '/#about'},
   {label: 'Projects', href: '/#projects'},
   {label: 'Contact', href: '/contact.html'},
-  {label: 'Blog', href: '/blog/', portal: true, section: 'blog'},
-  {label: 'Docs', href: '/blog/docs/intro', portal: true, section: 'docs'},
+  {label: 'Blog', href: '/blog/', section: 'blog'},
+  {label: 'Docs', href: '/blog/docs/intro', section: 'docs'},
 ];
 
 function isActive(pathname, section) {
@@ -29,14 +29,14 @@ export default function MainNavbarLinks({mobile = false, onClick}) {
   const {pathname} = useLocation();
 
   if (mobile) {
-    return links.map(({label, href, portal, section}) => {
+    return links.map(({label, href, section}) => {
       const active = isActive(pathname, section);
 
       return (
         <li className="menu__list-item" key={label}>
           <a
             aria-current={active ? 'page' : undefined}
-            className={clsx('menu__link', portal && 'navbar__link--portal', active && 'menu__link--active')}
+            className={clsx('menu__link', active && 'menu__link--active')}
             href={href}
             onClick={onClick}>
             {label}
@@ -48,7 +48,7 @@ export default function MainNavbarLinks({mobile = false, onClick}) {
 
   return (
     <nav className="mk-navbar-links" aria-label="Primary navigation">
-      {links.map(({label, href, portal, section}) => {
+      {links.map(({label, href, section}) => {
         const active = isActive(pathname, section);
 
         return (
@@ -56,7 +56,6 @@ export default function MainNavbarLinks({mobile = false, onClick}) {
             aria-current={active ? 'page' : undefined}
             className={clsx(
               'navbar__link',
-              portal && 'navbar__link--portal',
               active && 'navbar__link--active',
             )}
             href={href}

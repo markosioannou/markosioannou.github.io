@@ -250,36 +250,12 @@ a:hover {
 .navbar__link:hover,
 .navbar__link--active {
   color: var(--ink);
-  border-color: rgba(172, 208, 237, 0.13);
-  background: rgba(255, 255, 255, 0.075);
+  background: rgba(255, 255, 255, 0.08);
   text-decoration: none;
 }
 
 .navbar__link--active {
-  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
-}
-
-.navbar__link--portal {
-  margin-left: 0.2rem;
-  padding-top: calc(0.4rem - 1px);
-  padding-bottom: calc(0.4rem - 1px);
-  border: 1px solid transparent;
-  color: var(--muted);
-  background: transparent;
   box-shadow: none;
-}
-
-.navbar__link--portal:hover {
-  border-color: rgba(98, 212, 255, 0.28);
-  color: var(--ink);
-  background: rgba(98, 212, 255, 0.08);
-}
-
-.navbar__link--portal.navbar__link--active {
-  border-color: rgba(98, 212, 255, 0.42);
-  color: #e8faff;
-  background: linear-gradient(135deg, rgba(98, 212, 255, 0.18), rgba(183, 154, 255, 0.1));
-  box-shadow: 0 8px 22px rgba(0, 10, 24, 0.18);
 }
 
 .mk-navbar-links {
@@ -1526,5 +1502,223 @@ html.plugin-native .theme-layout-main > main p:last-child {
     transition-duration: 0.01ms !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
+  }
+}
+
+/* Comfortable touch layouts and predictable reading widths on small screens. */
+@media (max-width: 899px) {
+  .navbar {
+    --ifm-navbar-sidebar-width: min(22rem, calc(100vw - 1rem));
+    width: calc(100% - 1.5rem);
+    margin-top: 0.75rem;
+    padding-top: 0.55rem;
+    padding-bottom: 0.55rem;
+  }
+
+  .navbar__inner {
+    gap: 0.65rem;
+  }
+
+  .navbar__brand {
+    min-height: 2.75rem;
+  }
+
+  .navbar__toggle {
+    min-width: 2.75rem;
+    min-height: 2.75rem;
+    flex: 0 0 auto;
+  }
+
+  .navbar-sidebar {
+    width: min(22rem, calc(100vw - 1rem));
+    height: calc(100dvh - 1rem);
+    max-height: calc(100dvh - 1rem);
+    margin: 0.5rem;
+  }
+
+  .navbar-sidebar__items {
+    max-height: calc(100dvh - 6rem);
+    overflow: visible;
+  }
+
+  .navbar-sidebar__item {
+    max-height: calc(100dvh - 6rem);
+    overscroll-behavior: contain;
+  }
+
+  /* Custom navbar items are rendered in both desktop and drawer contexts.
+     Keep the primary links visible even when Docusaurus omits its mobile flag. */
+  .navbar-sidebar .mk-navbar-links {
+    display: flex !important;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.3rem;
+  }
+
+  .navbar-sidebar .mk-navbar-links .navbar__link {
+    min-height: 2.9rem;
+    justify-content: flex-start;
+    padding: 0.65rem 0.8rem;
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  .navbar-sidebar .mk-navbar-links .navbar__link:hover,
+  .navbar-sidebar .mk-navbar-links .navbar__link--active {
+    color: var(--ink);
+    border-color: rgba(98, 212, 255, 0.2);
+    background: rgba(98, 212, 255, 0.1);
+  }
+
+  .navbar-sidebar .menu__link,
+  .navbar-sidebar__back {
+    min-height: 2.9rem;
+  }
+
+  .blog-wrapper .container.margin-vert--lg {
+    margin-top: 0.85rem !important;
+  }
+
+  .theme-blog-list-page-main,
+  .theme-blog-post-page-main,
+  .theme-blog-tag-list-page-main,
+  .theme-blog-tags-posts-page-main,
+  .theme-blog-author-page-main,
+  .theme-blog-authors-list-page-main,
+  .theme-blog-archive-page-main {
+    width: 100%;
+    padding-top: 0.8rem;
+  }
+
+  .docs-wrapper .main-wrapper {
+    width: calc(100% - 1.5rem);
+    margin-top: 0.85rem;
+  }
+
+  .theme-doc-sidebar-container {
+    width: 100% !important;
+    margin: 0 0 0.8rem !important;
+  }
+
+  .theme-doc-sidebar-container nav.menu {
+    max-height: min(42vh, 20rem);
+    padding: 0.6rem;
+  }
+
+  .theme-doc-sidebar-container .menu__link {
+    min-height: 2.8rem;
+  }
+
+  .docs-wrapper .theme-doc-markdown {
+    overflow-wrap: anywhere;
+  }
+
+  .docs-wrapper .theme-doc-markdown h1 {
+    margin-bottom: 1rem;
+  }
+
+  .docs-wrapper article.margin-top--lg > .row {
+    margin-right: -0.35rem;
+    margin-left: -0.35rem;
+  }
+
+  .docs-wrapper [class*='docCardListItem_'] {
+    padding: 0.35rem;
+  }
+
+  .docs-wrapper .theme-doc-card-container {
+    min-height: 0;
+    padding: 1rem !important;
+  }
+
+  .theme-doc-card-container,
+  .button,
+  .pagination-nav__link {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .button {
+    min-height: 2.75rem;
+    padding: 0.65rem 1rem;
+  }
+
+  .pagination-nav__link {
+    min-height: 5rem;
+  }
+
+  .theme-blog-post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.25rem 0.4rem;
+    line-height: 1.5;
+  }
+
+  .theme-blog-post-meta > * {
+    min-width: 0;
+  }
+
+  .avatar__intro {
+    min-width: 0;
+  }
+
+  .avatar__name,
+  .avatar__subtitle {
+    overflow-wrap: anywhere;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar__title {
+    font-size: 0.84rem;
+  }
+
+  .navbar__title::after {
+    max-width: 10.5rem;
+    font-size: 0.63rem;
+  }
+
+  .mk-post-card,
+  article.blog-post-item,
+  html.blog-post-page article,
+  html.docs-wrapper main article:not(.margin-top--lg):not([class*='docCardListItem_']) {
+    padding: 1.1rem;
+  }
+
+  .mk-post-card header h2,
+  html.blog-post-page article header h1 {
+    font-size: clamp(1.65rem, 8vw, 2.25rem);
+    line-height: 1.12;
+    letter-spacing: -0.035em;
+  }
+
+  .theme-doc-markdown h2,
+  article h2:not(.theme-doc-card-heading) {
+    margin-top: 1.8rem;
+  }
+
+  .theme-doc-markdown p,
+  article p {
+    line-height: 1.72;
+  }
+
+  .breadcrumbs {
+    width: 100%;
+    justify-content: flex-start;
+    margin-bottom: 1rem;
+    border-radius: 14px;
+  }
+
+  .breadcrumbs__item {
+    flex: 0 0 auto;
+  }
+
+  .theme-doc-card-container {
+    border-radius: 14px;
+  }
+
+  .theme-blog-post-meta {
+    font-size: 0.75rem;
   }
 }
