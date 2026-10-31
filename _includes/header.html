@@ -1,0 +1,34 @@
+<header class="nav site-header">
+  <a class="nav-left site-brand" href="/" aria-label="Markos Ioannou home">
+    <span class="logo-circle logo-photo">
+      <img src="/assets/icons/android-chrome-512x512.png" alt="" />
+    </span>
+    <span class="brand-text">
+      <span class="brand-name">Markos Ioannou</span>
+      <span class="brand-tag">Data & Analytics · Bioinformatics</span>
+    </span>
+  </a>
+
+  <nav class="nav-links" aria-label="Primary navigation">
+    <a href="/#about">About</a>
+    <a href="/#projects">Projects</a>
+    <a href="/blog/">Blog</a>
+    <a href="/contact.html"{% if page.nav_active == "contact" %} aria-current="page"{% endif %}>Contact</a>
+  </nav>
+
+  <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="mobile-nav" aria-label="Toggle navigation">
+    ☰
+  </button>
+
+  {% if page.header_cta == "home" %}
+    <a class="pill-btn nav-cta" href="/">
+      <span aria-hidden="true">←</span>
+      <span>Back home</span>
+    </a>
+  {% else %}
+    <a class="pill-btn nav-cta" href="/contact.html">
+      <span class="pill-dot" aria-hidden="true"></span>
+      <span>Available for opportunities</span>
+    </a>
+  {% endif %}
+</header>

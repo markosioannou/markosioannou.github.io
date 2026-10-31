@@ -1,133 +1,19 @@
 ---
+layout: default
+title: Markos Ioannou — Data & Analytics
 description: MSc Data Science graduate with a biomedical background, working on analytics, machine learning, and bioinformatics projects.
+analytics: true
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  {% include preview.html %}
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  
-  <!-- External CSS -->
-  <link rel="stylesheet" href="/styles.css">
-
-  <!-- Google Analytics + Consent Mode -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-4GR6F3D8H0"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){ dataLayer.push(arguments); }
-
-    gtag('consent', 'default', {
-      'analytics_storage': 'denied'
-    });
-
-    function enableAnalytics() {
-      gtag('consent', 'update', {
-        'analytics_storage': 'granted'
-      });
-      gtag('js', new Date());
-      gtag('config', 'G-4GR6F3D8H0');
-    }
-  </script>
-
-  <!-- Cookie Banner Logic -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var banner = document.getElementById('cookie-banner');
-      var acceptBtn = document.getElementById('cookie-accept');
-      var declineBtn = document.getElementById('cookie-decline');
-
-      if (!banner || !acceptBtn || !declineBtn) return;
-
-      var consent = localStorage.getItem('cookie_consent');
-
-      if (consent === 'accepted') {
-        banner.style.display = 'none';
-        enableAnalytics();
-        return;
-      }
-
-      if (consent === 'declined') {
-        banner.style.display = 'none';
-        return;
-      }
-
-      banner.style.display = 'flex';
-
-      acceptBtn.addEventListener('click', function () {
-        localStorage.setItem('cookie_consent', 'accepted');
-        banner.style.display = 'none';
-        enableAnalytics();
-      });
-
-      declineBtn.addEventListener('click', function () {
-        localStorage.setItem('cookie_consent', 'declined');
-        banner.style.display = 'none';
-      });
-    });
-  </script>
-</head>
-<body>
-
-  <!-- Cookie Banner -->
-  <div id="cookie-banner">
-    <div class="cookie-text">
-      This website uses cookies for analytics to help me understand traffic and improve my content.
-      You can choose whether to allow analytics cookies.
-    </div>
-    <button id="cookie-accept">Allow analytics</button>
-    <button id="cookie-decline">Decline</button>
-  </div>
-
-  <div class="shell">
-    <header class="nav">
-      <div class="nav-left">
-        <div class="logo-circle logo-photo">
-          <img src="/assets/icons/android-chrome-512x512.png" alt="Markos logo" />
-        </div>
-        <div class="brand-text">
-          <div class="brand-name">Markos Ioannou</div>
-          <div class="brand-tag">Data & Analytics · Bioinformatics</div>
-        </div>
-      </div>
-
-      <nav class="nav-links">
-        <a href="#about">About</a>
-        <a href="#projects">Projects</a>
-        <a href="/contact.html">Contact</a>
-        <a href="/blog/" class="nav-link">Blog</a>
-      </nav>
-
-    <!-- Mobile hamburger button -->
-      <button class="nav-toggle"
-              aria-expanded="false"
-              aria-controls="mobile-nav">
-        ☰
-      </button>
-    
-    <!-- Desktop CTA -->
-      <a class="pill-btn nav-cta" href=/contact.html>
-        <span class="pill-dot"></span>
-        <span>Available for opportunities</span>
-      </a>
-    </header>
-   
-    <nav id="mobile-nav" class="mobile-nav" hidden>
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="/contact.html">Contact</a>
-    </nav>
-   
-    <main>
+<main class="site-main home-layout">
       <!-- Hero -->
-      <section class="panel" id="about">
+      <section class="panel hero-panel" id="about" aria-labelledby="intro-title">
         <div class="badge-row">
           <span class="badge-pill">Now live on markos-ioannou.com</span>
           <span>GitHub Pages · Custom domain</span>
         </div>
 
-        <h1>
+        <h1 id="intro-title">
           Hey, I'm <span class="headline-accent">Markos</span> — I turn noisy data into actionable insights.
         </h1>
 
@@ -187,7 +73,13 @@ description: MSc Data Science graduate with a biomedical background, working on 
       </section>
 
       <!-- Projects -->
-      <section class="panel panel-right" id="projects">
+      <section class="panel panel-right" id="projects" aria-labelledby="projects-title">
+
+        <div class="section-heading">
+          <p class="eyebrow">Selected work</p>
+          <h2 id="projects-title">Projects at the intersection of data and life sciences.</h2>
+          <p>Project links will appear here as each case study is prepared for sharing.</p>
+        </div>
 
         <div class="card">
           <div class="card-header">
@@ -208,9 +100,9 @@ description: MSc Data Science graduate with a biomedical background, working on 
             <span class="tech-pill">Matplotlib · Seaborn</span>
           </div>
 
-          <div class="card-link-row">
-            <a class="card-link" href="#">Live demo ↗</a>
-            <a class="card-link" href="#">Source on GitHub ↗</a>
+          <div class="card-link-row" aria-label="Project links">
+            <span class="project-placeholder"><span aria-hidden="true">◌</span> Demo coming soon</span>
+            <span class="project-placeholder"><span aria-hidden="true">◌</span> Source coming soon</span>
           </div>
         </div>
 
@@ -235,9 +127,9 @@ description: MSc Data Science graduate with a biomedical background, working on 
             <span class="tech-pill">Network Analysis</span>
           </div>
 
-          <div class="card-link-row">
-            <a class="card-link" href="#">Live demo ↗</a>
-            <a class="card-link" href="#">Source on GitHub ↗</a>
+          <div class="card-link-row" aria-label="Project links">
+            <span class="project-placeholder"><span aria-hidden="true">◌</span> Demo coming soon</span>
+            <span class="project-placeholder"><span aria-hidden="true">◌</span> Source coming soon</span>
           </div>
         </div>
 
@@ -261,9 +153,9 @@ description: MSc Data Science graduate with a biomedical background, working on 
             <span class="tech-pill">Thesis writing</span>
           </div>
 
-          <div class="card-link-row">
-            <a class="card-link" href="#">Live demo ↗</a>
-            <a class="card-link" href="#">Source on GitHub ↗</a>
+          <div class="card-link-row" aria-label="Project links">
+            <span class="project-placeholder"><span aria-hidden="true">◌</span> Demo coming soon</span>
+            <span class="project-placeholder"><span aria-hidden="true">◌</span> Source coming soon</span>
           </div>
         </div>
 
@@ -294,50 +186,4 @@ description: MSc Data Science graduate with a biomedical background, working on 
           </div>
         </div>
       </section>
-    </main>
-
-  {% include footer.html %}
-
-  </div>
-
-<!-- Smooth Scrolling Script -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener("click", function (e) {
-        const targetId = this.getAttribute("href").slice(1);
-        const target = document.getElementById(targetId);
-        if (!target) return;
-
-        e.preventDefault();
-        target.scrollIntoView({ behavior: "smooth" });
-      });
-    });
-  });
-</script>
-
-<!-- Hamburger Menu Script -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const btn = document.querySelector(".nav-toggle");
-    const menu = document.getElementById("mobile-nav");
-    if (!btn || !menu) return;
-
-    btn.addEventListener("click", () => {
-      const isOpen = btn.getAttribute("aria-expanded") === "true";
-      btn.setAttribute("aria-expanded", String(!isOpen));
-      menu.hidden = isOpen;
-    });
-
-    // Close menu after clicking a link
-    menu.querySelectorAll("a").forEach(a => {
-      a.addEventListener("click", () => {
-        btn.setAttribute("aria-expanded", "false");
-        menu.hidden = true;
-      });
-    });
-  });
-</script>
-
-</body>
-</html>
+</main>

@@ -11,8 +11,6 @@ const config = {
     'Personal website of Markos Ioannou, featuring data analytics and machine learning projects, skills, and experience.',
   favicon: 'img/favicon.ico',
 
-  future: { v4: true },
-
   url: siteUrl,
   baseUrl,
 
@@ -52,7 +50,7 @@ const config = {
     },
 
     // Theme color
-    { tagName: 'meta', attributes: { name: 'theme-color', content: '#020617' } },
+    { tagName: 'meta', attributes: { name: 'theme-color', content: '#030b15' } },
 
     // JSON-LD Person
     {
@@ -146,7 +144,7 @@ const config = {
   themeConfig:
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */ ({
       // Default social card for OG/Twitter (acts like your preview.jpg default)
-      image: '${siteUrl}/assets/images/preview.jpg',
+      image: `${siteUrl}/assets/images/preview.jpg`,
 
       // Extra global meta defaults
       metadata: [
@@ -154,32 +152,30 @@ const config = {
       ],
 
       colorMode: {
-        respectPrefersColorScheme: true,
+        defaultMode: 'dark',
+        respectPrefersColorScheme: false,
         disableSwitch: true,
       },
 
       navbar: {
-        title: '',
+        title: 'Markos Ioannou',
         logo: {
           alt: 'Markos',
-          src: 'https://markos-ioannou.com/assets/icons/android-chrome-512x512.png', // put in blog_src/static/img/logo.png (or change)
+          src: 'img/favicon.ico',
           width: 32,
           height: 32,
         },
         items: [
           {
-            type: 'docSidebar',
-            sidebarId: 'tutorialSidebar',
+            type: 'custom-mainNav',
             position: 'left',
-            label: 'Tutorial',
           },
-          { to: '/', label: 'Blog', position: 'left' },
 
           {
             type: 'html',
             position: 'right',
             value: `
-              <a href="https://markos-ioannou.com/contact.html"
+              <a href="/contact.html"
                 class="mk-pill-btn"
                 aria-label="Available for opportunities">
                 <span class="mk-pill-dot"></span>

@@ -1,1087 +1,1530 @@
-/* =========================================================
-   Markos OG Theme — Docusaurus Skin (CLEAN + COHESIVE)
-   Drop-in for: blog_src/src/css/custom.css
-   ========================================================= */
-
-/* =========================================================
-   1) DESIGN TOKENS (Single Source of Truth)
-   ========================================================= */
 :root {
-  /* Core Palette */
-  --bg: #020617;
-  --accent: #38bdf8;
-  --text: #e5e7eb;
-  --muted: #9ca3af;
+  --ink: #f5f8fc;
+  --muted: #aebed0;
+  --faint: #71849a;
+  --navy: #061525;
+  --navy-deep: #030b15;
+  --surface: rgba(10, 30, 51, 0.78);
+  --surface-strong: rgba(11, 35, 59, 0.94);
+  --line: rgba(172, 208, 237, 0.16);
+  --cyan: #62d4ff;
+  --violet: #b79aff;
+  --green: #68e4a5;
+  --radius: 22px;
+  --radius-inner: 16px;
+  --page-gap: 1.35rem;
+  --shadow: 0 24px 70px rgba(0, 6, 16, 0.36);
+  --accent: var(--cyan);
 
-  /* Effects */
-  --shadow-soft: 0 30px 80px rgba(15, 23, 42, 0.85);
-  --radius-xl: 1.5rem;
-  --radius-full: 999px;
-  --transition-fast: 160ms ease-out;
-
-  /* Layout */
-  --shell-max: 1120px;
-  --shell-pad: 1.25rem;
-  --shell-pad-desktop: 1.5rem;
-
-  /* Navbar Geometry */
-  --mk-navbar-h: 58.1719px;
-  --mk-navbar-pad-y: 11.2px;
-  --mk-navbar-pad-x: 16px;
-  --mk-navbar-gap: 16px;
-  --mk-nav-max: 1072px;
-  --mk-nav-pad: var(--shell-pad);
-
-  /* Navbar Positioning */
-  --mk-page-top-pad: 46px;
-  --mk-sticky-top: 16px;
-  --mk-left-reserve: 230px;
-  --mk-right-reserve: 360px;
-
-  /* Link Sizing */
-  --mk-link-font: 13.6px;
-  --mk-link-line: 16px;
-  --mk-link-pad-y: 4.8px;
-  --mk-link-pad-x: 11.2px;
-  --mk-link-border: 1px;
-
-  /* CTA Button Sizing */
-  --mk-cta-font: 12.8px;
-  --mk-cta-pad-y: 7.2px;
-  --mk-cta-pad-x: 14.4px;
-  --mk-cta-gap: 6.4px;
-
-  /* TOC Positioning */
-  --mk-toc-top: calc(var(--mk-sticky-top) + var(--mk-navbar-h) + 24px);
-
-  /* Docusaurus Overrides */
-  --ifm-navbar-height: var(--mk-navbar-h);
-  --ifm-color-primary: var(--accent);
-  --ifm-font-family-base: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
-  --ifm-background-color: var(--bg);
-  --ifm-font-color-base: var(--text);
-  --ifm-color-content-secondary: var(--muted);
+  --ifm-color-primary: #62d4ff;
+  --ifm-color-primary-dark: #3bc9ff;
+  --ifm-color-primary-darker: #28c4ff;
+  --ifm-color-primary-darkest: #00adef;
+  --ifm-color-primary-light: #89dfff;
+  --ifm-color-primary-lighter: #9ce4ff;
+  --ifm-color-primary-lightest: #d5f4ff;
+  --ifm-background-color: var(--navy-deep);
+  --ifm-background-surface-color: var(--navy);
+  --ifm-font-color-base: var(--ink);
+  --ifm-heading-color: var(--ink);
+  --ifm-link-color: var(--cyan);
+  --ifm-link-hover-color: #9be7ff;
+  --ifm-navbar-background-color: transparent;
+  --ifm-navbar-shadow: none;
+  --ifm-navbar-height: 3.75rem;
+  --ifm-footer-background-color: transparent;
+  --ifm-code-font-size: 92%;
+  --ifm-code-background: rgba(2, 14, 27, 0.72);
+  --ifm-toc-border-color: var(--line);
+  --ifm-global-radius: 12px;
+  --ifm-card-border-radius: 16px;
+  --ifm-container-width-xl: 1180px;
+  --docusaurus-highlighted-code-line-bg: rgba(98, 212, 255, 0.12);
 }
 
-
-/* Shared top alignment for docs panes */
-:root {
-  --mk-doc-pane-top: calc(var(--mk-navbar-h) + var(--mk-sticky-top) + 90px);
+[data-theme='dark'],
+[data-theme='light'] {
+  --ifm-background-color: var(--navy-deep);
+  --ifm-background-surface-color: var(--navy);
+  --ifm-font-color-base: var(--ink);
+  --ifm-heading-color: var(--ink);
+  --ifm-menu-color: var(--muted);
+  --ifm-menu-color-active: var(--cyan);
+  --ifm-breadcrumb-color-active: var(--cyan);
 }
 
-
-:root {
-  --mk-docs-side-inset: 260px; /* try 48–96px */
-}
-
-/* Desktop Adjustments */
-@media (min-width: 900px) {
-  :root {
-    --mk-nav-pad: var(--shell-pad-desktop);
-  }
-}
-
-/* Dark Theme Override */
-html[data-theme='dark'] {
-  --ifm-background-color: var(--bg);
-  --ifm-font-color-base: var(--text);
-}
-
-/* =========================================================
-   2) GLOBAL BASE
-   ========================================================= */
 * {
   box-sizing: border-box;
-  -webkit-font-smoothing: antialiased;
 }
 
-a {
-  color: var(--accent);
-  transition: color var(--transition-fast);
-}
-
-a:hover {
-  color: #a5e7ff;
-}
-
-.markdown {
-  line-height: 1.75;
-}
-
-/* =========================================================
-   3) FIXED BACKGROUND LAYER
-   ========================================================= */
-html,
-body {
-  background: transparent !important;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 7rem;
+  background: var(--navy-deep);
 }
 
 body {
-  position: relative;
   min-height: 100vh;
-  color: var(--text);
-  padding-top: var(--mk-page-top-pad) !important;
+  margin: 0;
+  color: var(--ink);
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  line-height: 1.6;
+  background: var(--navy-deep);
 }
 
 body::before {
-  content: "";
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: 0;
+  content: '';
   pointer-events: none;
   background:
-    radial-gradient(circle at top, #1f2937 0, transparent 55%),
-    radial-gradient(circle at bottom, #0f172a 0, transparent 55%),
-    var(--bg);
-  background-repeat: no-repeat;
-  background-size: cover;
+    radial-gradient(circle at 18% -5%, #16486f 0, transparent 32rem),
+    radial-gradient(circle at 100% 60%, #211e56 0, transparent 35rem);
 }
 
-#__docusaurus,
-.main-wrapper,
-.footer,
-.footer__container {
-  background: transparent !important;
+body::after {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  content: '';
+  pointer-events: none;
+  opacity: 0.28;
+  background-image:
+    linear-gradient(rgba(175, 220, 246, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(175, 220, 246, 0.035) 1px, transparent 1px);
+  background-size: 42px 42px;
+  mask-image: linear-gradient(to bottom, black, transparent 75%);
 }
 
-/* =========================================================
-   4) LAYOUT & SPACING
-   ========================================================= */
-.container {
-  max-width: var(--shell-max);
-  padding-inline: var(--shell-pad);
+#__docusaurus {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
 }
 
-@media (min-width: 900px) {
-  .container {
-    padding-inline: var(--shell-pad-desktop);
-  }
+::selection {
+  color: #03111d;
+  background: #8ee5ff;
+}
+
+a,
+button,
+input,
+textarea,
+[tabindex]:not([tabindex='-1']) {
+  transition: color 0.2s ease, background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+[tabindex]:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
 }
 
 .main-wrapper {
-  padding-top: 0 !important;
-  padding-bottom: 3rem;
+  min-height: calc(100vh - 9rem);
+  background: transparent;
 }
 
-@media (min-width: 900px) {
-  .main-wrapper {
-    padding-bottom: 4rem;
-  }
+.container,
+.container-fluid {
+  width: min(1180px, 100%);
+  max-width: 1180px;
+  padding-right: clamp(1rem, 4vw, 2.5rem);
+  padding-left: clamp(1rem, 4vw, 2.5rem);
 }
 
-/* =========================================================
-   5) NAVBAR — Frosted Pill (Sticky)
-   ========================================================= */
-nav.theme-layout-navbar.navbar.navbar--fixed-top {
-  height: var(--mk-navbar-h) !important;
-  position: sticky !important;
-  top: var(--mk-sticky-top) !important;
-  z-index: 9999;
-  width: min(var(--mk-nav-max), calc(100% - 2 * var(--mk-nav-pad))) !important;
-  margin-inline: auto !important;
-  padding: var(--mk-navbar-pad-y) var(--mk-navbar-pad-x) !important;
-  gap: var(--mk-navbar-gap) !important;
-  border-radius: var(--radius-full) !important;
-  background: rgba(15, 23, 42, 0.55) !important;
-  border: 1px solid rgba(148, 163, 184, 0.12) !important;
-  backdrop-filter: blur(14px) !important;
-  -webkit-backdrop-filter: blur(14px) !important;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.25) !important;
-  overflow: hidden;
-  isolation: isolate;
-  transform: none !important;
+/* Shared glass navigation */
+.navbar {
+  position: sticky;
+  top: 1rem;
+  z-index: 50;
+  width: min(calc(100% - 2rem), calc(100% - 8vw), 1100px);
+  min-height: 0;
+  height: auto;
+  margin: 1.25rem auto 0;
+  padding: 0.7rem 0.8rem 0.7rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(5, 20, 35, 0.72);
+  box-shadow: 0 14px 42px rgba(0, 6, 16, 0.28);
+  backdrop-filter: blur(18px);
+  line-height: 1.55;
 }
 
-nav.theme-layout-navbar.navbar .navbar__inner {
-  padding: 0 !important;
-  gap: 0 !important;
+.navbar__inner {
+  height: auto;
+  flex-wrap: nowrap;
+  gap: 1rem;
 }
 
-nav.theme-layout-navbar.navbar .navbar__items {
-  display: flex !important;
-  align-items: center !important;
+.navbar__items {
+  min-width: 0;
+  height: auto;
 }
 
-/* =========================================================
-   6) NAVBAR — Logo & Brand
-   ========================================================= */
-nav.theme-layout-navbar.navbar .navbar__logo,
-nav.theme-layout-navbar.navbar .navbar__logo img {
-  width: 32px !important;
-  height: 32px !important;
-  border-radius: var(--radius-full) !important;
-  box-shadow: 0 14px 30px rgba(15, 23, 42, 0.9) !important;
-  object-fit: cover;
+.navbar__brand {
+  height: 36px;
+  min-width: 0;
+  align-self: center;
+  margin: 0;
+  gap: 0.7rem;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.navbar__brand::after {
+  content: none;
+}
+
+.navbar__title {
+  display: block !important;
+  min-width: 0;
+  max-width: none;
+  flex: 0 0 auto;
+  overflow: visible;
+  color: var(--ink);
+  font-size: 0.9rem;
+  font-weight: 750;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+  text-overflow: clip;
+  white-space: nowrap;
+}
+
+.navbar__title::after {
   display: block;
-}
-
-nav.theme-layout-navbar.navbar .navbar__title {
-  display: inline-flex !important;
-  flex-direction: column !important;
-  line-height: 1.05 !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  font-size: 0 !important;
-}
-
-nav.theme-layout-navbar.navbar .navbar__title::before {
-  content: "Markos Ioannou";
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  color: var(--text) !important;
-}
-
-nav.theme-layout-navbar.navbar .navbar__title::after {
-  content: "Data & Analytics · Bioinformatics";
-  margin-top: 3px !important;
-  font-size: 12px !important;
-  font-weight: 400 !important;
-  color: var(--muted) !important;
-}
-
-/* =========================================================
-   7) NAVBAR — Desktop Layout (Centered Links)
-   ========================================================= */
-@media (min-width: 900px) {
-  nav.theme-layout-navbar.navbar .theme-layout-navbar-left.navbar__items {
-    width: 100% !important;
-    flex: 1 1 auto !important;
-    justify-content: center !important;
-    gap: 0.5rem !important;
-    padding-left: var(--mk-left-reserve) !important;
-    padding-right: var(--mk-right-reserve) !important;
-  }
-
-  nav.theme-layout-navbar.navbar .theme-layout-navbar-left .navbar__brand {
-    position: absolute !important;
-    left: 16px !important;
-    top: 50% !important;
-    transform: translateY(-50%) !important;
-    margin: 0 !important;
-  }
-
-  nav.theme-layout-navbar.navbar .theme-layout-navbar-right.navbar__items--right {
-    position: absolute !important;
-    right: 17px !important;
-    top: 0 !important;
-    height: 100% !important;
-    display: flex !important;
-    align-items: center !important;
-  }
-}
-
-/* =========================================================
-   8) NAVBAR — Mobile Menu Toggle
-   ========================================================= */
-nav.theme-layout-navbar.navbar .navbar__toggle {
-  display: inline-flex;
-  height: 100% !important;
-  align-items: center !important;
-  color: var(--text) !important;
-}
-
-@media (min-width: 900px) {
-  nav.theme-layout-navbar.navbar .navbar__toggle {
-    display: none !important;
-  }
-}
-
-/* =========================================================
-   9) NAVBAR — Navigation Links
-   ========================================================= */
-nav.theme-layout-navbar.navbar .navbar__item,
-nav.theme-layout-navbar.navbar .navbar__link {
-  height: auto !important;
-  min-height: 0 !important;
-}
-
-nav.theme-layout-navbar.navbar .navbar__link {
-  display: inline-flex !important;
-  align-items: center !important;
-  font-size: var(--mk-link-font) !important;
-  font-weight: 400 !important;
-  line-height: var(--mk-link-line) !important;
-  padding: var(--mk-link-pad-y) var(--mk-link-pad-x) !important;
-  box-sizing: border-box !important;
-  border-radius: var(--radius-full) !important;
-  border: var(--mk-link-border) solid transparent !important;
-  color: var(--muted) !important;
-  white-space: nowrap !important;
-  text-decoration: none !important;
-  transition:
-    background var(--transition-fast),
-    color var(--transition-fast),
-    border-color var(--transition-fast);
-}
-
-nav.theme-layout-navbar.navbar .navbar__link:hover,
-nav.theme-layout-navbar.navbar .navbar__link--active {
-  color: var(--text) !important;
-  background: rgba(15, 23, 42, 0.95) !important;
-  border-color: rgba(31, 41, 55, 0.9) !important;
-}
-
-/* =========================================================
-   10) NAVBAR — CTA Button ("Available for opportunities")
-   ========================================================= */
-nav.theme-layout-navbar.navbar .mk-pill-btn {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: var(--mk-cta-gap) !important;
-  font-size: var(--mk-cta-font) !important;
-  font-weight: 400 !important;
-  line-height: 16px !important;
-  padding: var(--mk-cta-pad-y) var(--mk-cta-pad-x) !important;
-  box-sizing: border-box !important;
-  border-radius: var(--radius-full) !important;
-  border: 1px solid rgba(148, 163, 184, 0.4) !important;
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.85)) !important;
-  color: var(--text) !important;
-  text-decoration: none !important;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.6) !important;
-  transition:
-    border-color var(--transition-fast),
-    background var(--transition-fast),
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast);
-}
-
-nav.theme-layout-navbar.navbar .mk-pill-btn:hover {
-  border-color: rgba(248, 250, 252, 0.25) !important;
-  background: rgba(15, 23, 42, 0.95) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9) !important;
-}
-
-nav.theme-layout-navbar.navbar .mk-pill-dot {
-  width: 7px !important;
-  height: 7px !important;
-  border-radius: var(--radius-full) !important;
-  background: #22c55e !important;
-  box-shadow: 0 0 0 6px rgba(34, 197, 94, 0.3) !important;
-  flex-shrink: 0 !important;
-}
-
-@media (min-width: 900px) {
-  nav.theme-layout-navbar.navbar .mk-pill-btn {
-    transform: translateX(13px) !important;
-  }
-
-  nav.theme-layout-navbar.navbar .mk-pill-btn:hover {
-    transform: translateX(13px) translateY(-1px) !important;
-  }
-}
-
-/* =========================================================
-   11) CONTENT PANELS — Frosted Glass Effect
-   ========================================================= */
-.blog-post-item,
-.theme-doc-markdown,
-.blog-post-page .markdown,
-html.docs-wrapper [class*="generatedIndex"],
-html.docs-wrapper .theme-doc-category-generated-index,
-html.docs-wrapper .theme-doc-category-generated-index-page,
-html.docs-wrapper .theme-doc-category {
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(31, 41, 55, 0.9);
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.04), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.03), transparent 55%),
-    rgba(15, 23, 42, 0.96);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: var(--shadow-soft);
+  min-width: 0;
+  margin-top: 0.17rem;
   overflow: hidden;
+  color: var(--muted);
+  content: 'Data & Analytics · Bioinformatics';
+  font-size: 0.69rem;
+  font-weight: 400;
+  letter-spacing: normal;
+  line-height: 1.15;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
-/* =========================================================
-   12) DOCS — Content Padding
-   ========================================================= */
-.theme-doc-markdown {
-  padding: 1.25rem !important;
+.navbar__logo {
+  width: 36px;
+  height: 36px;
+  flex: 0 0 36px;
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid rgba(98, 212, 255, 0.45);
+  border-radius: 50%;
+  box-shadow: 0 0 0 4px rgba(98, 212, 255, 0.08);
 }
 
-.theme-doc-markdown > .markdown {
-  margin: 0 !important;
+.navbar__logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-@media (min-width: 900px) {
-  .theme-doc-markdown {
-    padding: 1.6rem 1.75rem !important;
-  }
+.navbar__link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.4rem 0.64rem;
+  border: 0;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 400;
+  line-height: 1.55;
+  text-decoration: none;
 }
 
-.theme-doc-markdown pre {
-  margin: 1rem 0 !important;
-  padding: 1rem !important;
-  border-radius: 1rem;
-  overflow: auto;
+.navbar__link:hover,
+.navbar__link--active {
+  color: var(--ink);
+  border-color: rgba(172, 208, 237, 0.13);
+  background: rgba(255, 255, 255, 0.075);
+  text-decoration: none;
 }
 
-html.docs-wrapper [class*="generatedIndex"],
-html.docs-wrapper .theme-doc-category-generated-index,
-html.docs-wrapper .theme-doc-category-generated-index-page,
-html.docs-wrapper .theme-doc-category {
-  padding: 1.25rem !important;
+.navbar__link--active {
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.025);
 }
 
-html.docs-wrapper [class*="generatedIndex"] > *,
-html.docs-wrapper .theme-doc-category-generated-index > * {
-  padding-left: 0.25rem;
+.navbar__link--portal {
+  margin-left: 0.2rem;
+  padding-top: calc(0.4rem - 1px);
+  padding-bottom: calc(0.4rem - 1px);
+  border: 1px solid transparent;
+  color: var(--muted);
+  background: transparent;
+  box-shadow: none;
+}
+
+.navbar__link--portal:hover {
+  border-color: rgba(98, 212, 255, 0.28);
+  color: var(--ink);
+  background: rgba(98, 212, 255, 0.08);
+}
+
+.navbar__link--portal.navbar__link--active {
+  border-color: rgba(98, 212, 255, 0.42);
+  color: #e8faff;
+  background: linear-gradient(135deg, rgba(98, 212, 255, 0.18), rgba(183, 154, 255, 0.1));
+  box-shadow: 0 8px 22px rgba(0, 10, 24, 0.18);
+}
+
+.mk-navbar-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+}
+
+.navbar__items--right {
+  margin-left: auto;
+}
+
+.navbar__items--right > .navbar__item {
+  padding: 0;
+}
+
+.mk-pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.55rem 0.82rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.mk-pill-btn:hover {
+  color: var(--ink);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.mk-pill-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 0 4px rgba(104, 228, 165, 0.14);
+}
+
+.navbar__toggle {
+  order: 2;
+  width: auto;
+  height: auto;
+  margin-left: auto;
+  margin-right: 0;
+  padding: 0.45rem 0.62rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--ink);
+  background: transparent;
+  font-size: 1rem;
+}
+
+.navbar__toggle svg {
+  width: 14px;
+  height: 19.5px;
+}
+
+.navbar-sidebar {
+  width: min(86vw, 22rem);
+  height: calc(100dvh - 1.5rem);
+  max-height: calc(100dvh - 1.5rem);
+  margin: 0.75rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background:
+    radial-gradient(circle at 10% 0, rgba(22, 72, 111, 0.8), transparent 22rem),
+    var(--navy-deep);
+  box-shadow: 0 30px 80px rgba(0, 4, 12, 0.62);
+}
+
+.navbar.navbar-sidebar--show {
+  backdrop-filter: none;
+}
+
+.navbar-sidebar__backdrop {
+  background: rgba(0, 6, 16, 0.96);
+}
+
+.navbar-sidebar__brand {
+  min-height: 4.5rem;
+  border-bottom: 1px solid var(--line);
+  background: rgba(5, 20, 35, 0.92);
+}
+
+.navbar-sidebar__close {
+  display: inline-flex;
+  width: 2.65rem;
+  height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.055);
+}
+
+.navbar-sidebar__items {
+  padding: 0.85rem 0.85rem 1.25rem;
+}
+
+.navbar-sidebar .menu__link {
+  min-height: 2.75rem;
+  margin-bottom: 0.35rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid transparent;
+  border-radius: 15px;
+  color: var(--muted);
+}
+
+.navbar-sidebar .menu__link:hover,
+.navbar-sidebar .menu__link--active {
+  color: var(--ink);
+  border-color: rgba(98, 212, 255, 0.2);
+  background: rgba(98, 212, 255, 0.1);
+}
+
+.navbar-sidebar .mk-pill-btn {
+  width: 100%;
+  margin-top: 0.55rem;
+}
+
+.navbar-sidebar__back {
+  width: 100%;
+  min-height: 2.75rem;
+  margin: 0 0 0.75rem;
+  padding: 0.65rem 0.8rem;
+  border: 1px solid var(--line);
+  border-radius: 15px;
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.055);
+  font-weight: 700;
+  text-align: left;
+}
+
+.navbar-sidebar__back:hover {
+  border-color: rgba(98, 212, 255, 0.3);
+  background: rgba(98, 212, 255, 0.1);
+}
+
+.navbar-sidebar .theme-doc-sidebar-menu {
+  display: grid;
+  gap: 0.35rem;
+}
+
+.navbar-sidebar .theme-doc-sidebar-menu .menu__list-item-collapsible {
+  min-height: 2.75rem;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 15px;
+}
+
+.navbar-sidebar .theme-doc-sidebar-menu .menu__list-item-collapsible:hover {
+  border-color: rgba(172, 208, 237, 0.12);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.navbar-sidebar .theme-doc-sidebar-menu .menu__list-item-collapsible .menu__link {
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+
+.navbar-sidebar .theme-doc-sidebar-menu .menu__caret {
+  width: 2.15rem;
+  height: 2.15rem;
+  margin-right: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.navbar-sidebar .theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist) {
+  border-color: rgba(98, 212, 255, 0.3);
+  color: #e8faff;
+  background: linear-gradient(135deg, rgba(98, 212, 255, 0.17), rgba(183, 154, 255, 0.08));
+}
+
+/* Shared page rhythm */
+.theme-layout-main {
+  padding-top: var(--page-gap);
+}
+
+.blog-wrapper .theme-layout-main {
+  padding-top: 0;
+}
+
+.blog-wrapper .container.margin-vert--lg {
+  margin-top: var(--page-gap) !important;
+  margin-bottom: var(--page-gap) !important;
+}
+
+.theme-blog-list-page-main,
+.theme-blog-post-page-main,
+.theme-blog-tag-list-page-main,
+.theme-blog-tags-posts-page-main,
+.theme-blog-author-page-main,
+.theme-blog-authors-list-page-main,
+.theme-blog-archive-page-main {
+  width: min(1180px, 100%);
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 1.35rem clamp(1rem, 4vw, 2.5rem) 1rem;
+}
+
+.row {
+  row-gap: 1.25rem;
+}
+
+article,
+.theme-doc-markdown,
+.theme-blog-tags-list-page,
+.theme-blog-authors-list-page,
+.theme-blog-archive-page {
+  min-width: 0;
+}
+
+.mk-post-card,
+article.blog-post-item,
+html.blog-post-page article,
+html.docs-wrapper main article:not(.margin-top--lg):not([class*='docCardListItem_']),
+.theme-blog-tags-list-page,
+.theme-blog-authors-list-page,
+.theme-blog-archive-page {
+  position: relative;
+  padding: clamp(1.25rem, 3vw, 2rem);
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, rgba(16, 48, 78, 0.88), rgba(5, 20, 35, 0.9));
+  box-shadow: var(--shadow);
+}
+
+.mk-post-card::after,
+article.blog-post-item::after,
+html.blog-post-page article::after,
+html.docs-wrapper main article:not(.margin-top--lg):not([class*='docCardListItem_'])::after {
+  position: absolute;
+  top: -15rem;
+  right: -11rem;
+  width: 22rem;
+  height: 22rem;
+  content: '';
+  pointer-events: none;
+  background: radial-gradient(circle, rgba(98, 212, 255, 0.19), transparent 67%);
+}
+
+.mk-post-card + .mk-post-card,
+article.blog-post-item + article.blog-post-item {
+  margin-top: 1rem;
+}
+
+.mk-post-card header h2,
+html.blog-post-page article header h1 {
+  max-width: 800px;
+  margin-top: 0;
+  color: var(--ink);
+  font-size: clamp(2rem, 4vw, 3.65rem);
+  line-height: 1.07;
+  letter-spacing: -0.05em;
+}
+
+.mk-post-card header h2 a,
+html.blog-post-page article header h1 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.mk-post-card header h2 a:hover,
+html.blog-post-page article header h1 a:hover {
+  color: var(--cyan);
+}
+
+.theme-blog-post-title,
+.theme-doc-markdown h1,
+.theme-blog-tags-list-page h1,
+.theme-blog-authors-list-page h1,
+.theme-blog-archive-page h1 {
+  max-width: 800px;
+  margin-top: 0;
+  color: var(--ink);
+  font-size: clamp(2rem, 4vw, 3.65rem);
+  line-height: 1.07;
+  letter-spacing: -0.05em;
+}
+
+.theme-doc-markdown h1 {
+  font-size: clamp(2rem, 3.5vw, 3.1rem);
+}
+
+.theme-doc-markdown h2,
+.theme-doc-markdown h3,
+article h2:not(.theme-doc-card-heading),
+article h3:not(.theme-doc-card-heading) {
+  color: var(--ink);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+}
+
+.theme-doc-markdown h2,
+article h2:not(.theme-doc-card-heading) {
+  margin-top: 2.25rem;
+  padding-top: 0.35rem;
+  border-top: 1px solid var(--line);
+  font-size: clamp(1.45rem, 2.5vw, 2rem);
+}
+
+.theme-blog-post-meta,
+.theme-blog-post-meta a,
+.theme-doc-breadcrumbs,
+.breadcrumbs__link {
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: var(--cyan);
+  background: rgba(98, 212, 255, 0.08);
+}
+
+.breadcrumbs {
+  display: flex;
+  width: max-content;
+  max-width: 100%;
+  gap: 0.16rem;
+  margin-bottom: 1.4rem;
+  padding: 0.28rem;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: rgba(2, 14, 27, 0.3);
+}
+
+.breadcrumbs__item:not(:last-child)::after {
+  opacity: 0.55;
+}
+
+.breadcrumbs__link {
+  display: inline-flex;
+  min-height: 1.9rem;
+  align-items: center;
+  padding: 0.3rem 0.62rem;
+  border-radius: 999px;
+}
+
+.breadcrumbs__link:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+article p,
+.theme-doc-markdown p,
+article li,
+.theme-doc-markdown li {
+  color: #c6d5e4;
+}
+
+article p,
+.theme-doc-markdown p {
+  line-height: 1.78;
+}
+
+article strong,
+.theme-doc-markdown strong {
+  color: var(--ink);
+}
+
+article a:not(.button),
+.theme-doc-markdown a:not(.button) {
+  color: var(--cyan);
+  text-decoration-color: rgba(98, 212, 255, 0.4);
+  text-underline-offset: 0.18em;
+}
+
+.avatar__name,
+.avatar__name a,
+.avatar__subtitle {
+  color: var(--muted);
+}
+
+.avatar__name a:hover {
+  color: var(--cyan);
+}
+
+.avatar__photo {
+  border: 1px solid rgba(98, 212, 255, 0.35);
+  box-shadow: 0 0 0 4px rgba(98, 212, 255, 0.07);
+}
+
+.badge,
+.tag,
+.theme-blog-tags-list a,
+a[class*='tag_'] {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.27rem 0.6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: #c4d4e4;
+  background: rgba(1, 12, 25, 0.26);
+  font-size: 0.75rem;
+  text-decoration: none;
+}
+
+.theme-blog-tags-list a:hover,
+a[class*='tag_']:hover {
+  color: var(--ink);
+  border-color: rgba(98, 212, 255, 0.4);
+  background: rgba(98, 212, 255, 0.09);
+}
+
+.button {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--ink);
+  background: linear-gradient(145deg, rgba(13, 40, 66, 0.7), rgba(5, 20, 35, 0.76));
+  text-decoration: none;
+}
+
+.pagination-nav__link {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+  color: var(--ink);
+  background: linear-gradient(145deg, rgba(13, 40, 66, 0.7), rgba(5, 20, 35, 0.76));
+  text-decoration: none;
+}
+
+.button:hover,
+.pagination-nav__link:hover {
+  color: var(--ink);
+  border-color: rgba(98, 212, 255, 0.38);
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  text-decoration: none;
+}
+
+.pagination-nav__label {
+  color: var(--ink);
+  font-size: 0.96rem;
+}
+
+.pagination-nav__sublabel {
+  color: var(--cyan);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+}
+
+/* Long-form content */
+code {
+  border: 1px solid rgba(98, 212, 255, 0.12);
+  color: #9fe9ff;
+}
+
+pre,
+.theme-code-block {
+  max-width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  box-shadow: 0 16px 42px rgba(0, 6, 16, 0.28);
+}
+
+pre code {
+  border: 0;
+}
+
+table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+table th,
+table td {
+  border-color: var(--line);
+}
+
+table th {
+  color: var(--ink);
+  background: rgba(98, 212, 255, 0.08);
+}
+
+table tr:nth-child(2n) {
+  background: rgba(255, 255, 255, 0.025);
+}
+
+blockquote {
+  margin-left: 0;
+  padding: 0.3rem 0 0.3rem 1rem;
+  border-left: 3px solid var(--cyan);
+  color: var(--muted);
+  background: linear-gradient(90deg, rgba(98, 212, 255, 0.07), transparent);
+}
+
+.alert {
+  border: 1px solid var(--line);
+  border-left-width: 4px;
+  border-radius: 16px;
+  background: rgba(5, 20, 35, 0.7);
+  box-shadow: 0 14px 36px rgba(0, 6, 16, 0.2);
+}
+
+.tabs-container {
+  padding: 0.25rem;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  background: rgba(4, 17, 31, 0.44);
+}
+
+.tabs__item {
+  border-radius: 10px;
+  color: var(--muted);
+}
+
+.tabs__item--active {
+  color: var(--cyan);
+  background: rgba(98, 212, 255, 0.09);
+}
+
+article img,
+.theme-doc-markdown img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 16px;
+}
+
+.table-of-contents {
+  border-left-color: var(--line);
+}
+
+.table-of-contents__link {
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.45;
+}
+
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--cyan);
+}
+
+/* Blog side rail */
+.theme-blog-sidebar-container {
   padding-right: 0.25rem;
 }
 
-/* =========================================================
-   13) DOCS — Sidebar + TOC (ONE SOURCE OF TRUTH)
-   ========================================================= */
-
-/* Desktop layout rules only */
-@media (min-width: 997px) {
-
-  /* 0) Make sure the docs 3-column row actually behaves like a row */
-  html.docs-wrapper main .row {
-    display: flex !important;
-    flex-wrap: nowrap !important;
-    align-items: flex-start !important;
-  }
-
-  /* 1) LEFT SIDEBAR — fixed width + inset (your alignment method) */
-  html.docs-wrapper .theme-doc-sidebar-container {
-    flex: 0 0 260px !important;
-    width: 260px !important;
-    max-width: 260px !important;
-    min-width: 260px !important;
-
-    margin-left: var(--mk-docs-side-inset) !important;
-    margin-right: 0 !important;
-  }
-
-  /* 2) MIDDLE CONTENT — smaller so TOC gets space */
-  html.docs-wrapper main .row > [class*="docItemCol"],
-  html.docs-wrapper main .row > .col.col--7 {
-    flex: 0 1 600px !important;
-    max-width: 600px !important;
-    min-width: 0 !important;
-  }
-
-  /* 3) RIGHT TOC — fixed width + MATCHING inset for symmetry */
-  html.docs-wrapper .theme-doc-toc-desktop {
-    flex: 0 0 260px !important;
-    width: 260px !important;
-    max-width: 260px !important;
-    min-width: 260px !important;
-
-    margin-left: 0 !important;
-    margin-right: var(--mk-docs-side-inset) !important; /* ← KEY CHANGE */
-  }
+aside[class*='blogSidebar_'],
+.blog-wrapper aside > nav,
+.blog-list-page aside > nav,
+.blog-post-page aside > nav,
+.theme-blog-sidebar-container nav {
+  padding: 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(150deg, rgba(13, 40, 66, 0.8), rgba(4, 17, 31, 0.78));
+  box-shadow: 0 18px 48px rgba(0, 6, 16, 0.22);
+  backdrop-filter: blur(14px);
 }
 
-/* 4) STICKY TOP ALIGNMENT (all viewports where panes exist) */
-html.docs-wrapper .theme-doc-sidebar-container,
-html.docs-wrapper .theme-doc-toc-desktop {
-  position: sticky !important;
-  top: var(--mk-toc-top) !important;
-  align-self: flex-start !important;
+aside[class*='blogSidebar_'] h3,
+.blog-wrapper aside > nav h3,
+.blog-list-page aside > nav h3,
+.blog-post-page aside > nav h3,
+.theme-blog-sidebar-container h3 {
+  margin: 0 0 0.5rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid rgba(98, 212, 255, 0.12);
+  border-radius: 15px;
+  color: var(--cyan);
+  background: rgba(98, 212, 255, 0.055);
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
 }
 
-/* 5) LEFT PANE GLASS */
-html.docs-wrapper .theme-doc-sidebar-container {
-  border-radius: var(--radius-xl) !important;
-  border: 1px solid rgba(31, 41, 55, 0.9) !important;
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.04), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.03), transparent 55%),
-    rgba(15, 23, 42, 0.80) !important;
-  backdrop-filter: blur(18px) !important;
-  -webkit-backdrop-filter: blur(18px) !important;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22) !important;
-
-  padding: 0.85rem !important;
-  max-height: calc(100vh - var(--mk-toc-top) - 18px) !important;
-  overflow: auto !important;
+.theme-blog-sidebar-container [class*='sidebarItemTitle_'],
+.blog-wrapper aside [class*='sidebarItemTitle_'],
+aside[class*='blogSidebar_'] [class*='sidebarItemTitle_'] {
+  margin: 0 0 0.6rem;
+  padding: 0.7rem 0.75rem;
+  border: 1px solid rgba(98, 212, 255, 0.13);
+  border-radius: 15px;
+  color: var(--ink);
+  background: linear-gradient(135deg, rgba(98, 212, 255, 0.09), rgba(183, 154, 255, 0.045));
+  font-size: 0.88rem;
+  font-weight: 750;
 }
 
-html.docs-wrapper .theme-doc-sidebar-container .menu {
+aside[class*='blogSidebar_'] a,
+.blog-wrapper aside > nav a,
+.blog-list-page aside > nav a,
+.blog-post-page aside > nav a,
+.theme-blog-sidebar-container a {
+  display: block;
+  padding: 0.52rem 0.7rem;
+  border-radius: 12px;
+  color: var(--muted);
+  text-decoration: none;
+}
+
+aside[class*='blogSidebar_'] a:hover,
+.blog-wrapper aside > nav a:hover,
+.blog-list-page aside > nav a:hover,
+.blog-post-page aside > nav a:hover,
+.theme-blog-sidebar-container a:hover {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.theme-blog-sidebar-container a[aria-current='page'] {
+  color: #e8faff;
+  background: linear-gradient(135deg, rgba(98, 212, 255, 0.16), rgba(183, 154, 255, 0.07));
+}
+
+/* Docs: one aligned reading system, free of fixed Docusaurus offsets */
+.docs-wrapper .main-wrapper {
+  width: min(calc(100% - 2rem), calc(100% - 8vw), 1100px);
+  margin: var(--page-gap) auto 0;
+  padding-top: 0;
+  overflow: visible;
+}
+
+.docs-wrapper main {
+  min-width: 0;
+  max-width: none !important;
+  flex: 1 1 0;
+}
+
+.docs-wrapper main > .container {
+  max-width: none;
   padding: 0 !important;
 }
 
-/* 6) RIGHT PANE GLASS — style the OUTER column so width can't collapse */
-html.docs-wrapper .theme-doc-toc-desktop {
-  border-radius: var(--radius-xl) !important;
-  border: 1px solid rgba(148, 163, 184, 0.10) !important;
-  background: rgba(15, 23, 42, 0.55) !important;
-  backdrop-filter: blur(16px) !important;
-  -webkit-backdrop-filter: blur(16px) !important;
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.22) !important;
-
-  padding: 0.85rem !important;
-  max-height: calc(100vh - var(--mk-toc-top) - 18px) !important;
-  overflow: auto !important;
+.docs-wrapper main > .container > .row {
+  margin: 0;
 }
 
-/* Make the inner TOC fill the column */
-html.docs-wrapper .theme-doc-toc-desktop .table-of-contents {
+.docs-wrapper main > .container > .row > .col {
+  max-width: 100% !important;
+  padding: 0;
+}
+
+.theme-doc-sidebar-container {
+  width: 250px !important;
+  margin: 0 1.15rem 0 0 !important;
+  border: 0 !important;
+  background: transparent;
+  box-shadow: none;
+}
+
+.theme-doc-sidebar-container > div {
+  top: calc(var(--ifm-navbar-height) + 2rem);
+  height: auto !important;
+  max-height: calc(100vh - var(--ifm-navbar-height) - 3rem);
+  overflow: visible;
+}
+
+.theme-doc-sidebar-container > div > div {
   width: 100% !important;
+  height: auto !important;
+  padding-top: 0 !important;
+}
+
+.theme-doc-sidebar-container nav.menu {
+  width: 100% !important;
+  height: auto !important;
+  max-height: calc(100vh - var(--ifm-navbar-height) - 4rem);
+  margin-top: 0;
+  padding: 0.72rem;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(150deg, rgba(13, 40, 66, 0.82), rgba(4, 17, 31, 0.8));
+  box-shadow: 0 18px 48px rgba(0, 6, 16, 0.22);
+  backdrop-filter: blur(14px);
+}
+
+.theme-doc-sidebar-container nav.menu::before {
+  display: flex;
+  min-height: 2.6rem;
+  align-items: center;
+  margin-bottom: 0.55rem;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid rgba(98, 212, 255, 0.13);
+  border-radius: var(--radius-inner);
+  color: var(--cyan);
+  background: linear-gradient(135deg, rgba(98, 212, 255, 0.09), rgba(183, 154, 255, 0.045));
+  content: 'Documentation';
+  font-size: 0.68rem;
+  font-weight: 850;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.theme-doc-sidebar-menu {
+  display: grid;
+  gap: 0.3rem;
+  padding: 0;
+}
+
+.theme-doc-sidebar-container .menu__list-item {
+  margin: 0;
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible,
+.theme-doc-sidebar-container .menu__link {
+  border-radius: 12px;
+}
+
+.theme-doc-sidebar-container .menu__link {
+  min-height: 2.55rem;
+  align-items: center;
+  padding: 0.62rem 0.72rem;
+  border: 1px solid transparent;
+  color: var(--muted);
+  font-size: 0.82rem;
+  line-height: 1.25;
+}
+
+.theme-doc-sidebar-container .menu__link:hover,
+.theme-doc-sidebar-container .menu__link--active:not(.menu__link--sublist) {
+  color: var(--ink);
+  border-color: rgba(172, 208, 237, 0.12);
+  background: rgba(255, 255, 255, 0.065);
+}
+
+.theme-doc-sidebar-container .menu__link--active:not(.menu__link--sublist) {
+  border-color: rgba(98, 212, 255, 0.3);
+  color: #e8faff;
+  background: linear-gradient(135deg, rgba(98, 212, 255, 0.17), rgba(183, 154, 255, 0.08));
+  box-shadow: 0 8px 22px rgba(0, 8, 20, 0.2);
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible {
+  min-height: 2.55rem;
+  align-items: center;
+  border: 1px solid transparent;
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible:hover {
+  border-color: rgba(172, 208, 237, 0.12);
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.theme-doc-sidebar-container .menu__list-item-collapsible .menu__link {
+  border: 0;
+  background: transparent;
+}
+
+.theme-doc-sidebar-container .menu__caret {
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-right: 0.22rem;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.theme-doc-sidebar-container .menu__caret:hover {
+  border-color: rgba(98, 212, 255, 0.28);
+  background: rgba(98, 212, 255, 0.09);
+}
+
+.theme-doc-sidebar-container .menu__list .menu__list {
+  margin: 0.35rem 0.15rem 0.15rem 0.68rem;
+  padding-left: 0.62rem;
+  border-left: 1px solid rgba(98, 212, 255, 0.16);
+}
+
+.theme-doc-sidebar-item-category-level-1 > .menu__list-item-collapsible .menu__link {
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.theme-doc-toc-desktop {
+  display: none !important;
+}
+
+.theme-doc-markdown {
+  width: 100%;
+  padding: 0;
+}
+
+/* Category navigation cards use their own compact surface hierarchy. */
+.docs-wrapper article.margin-top--lg {
+  padding: 0;
+  overflow: visible;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.docs-wrapper article.margin-top--lg > .row {
+  row-gap: 0;
+}
+
+.docs-wrapper [class*='docCardListItem_'] {
+  margin-bottom: 0 !important;
+  padding: 0.45rem;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+.docs-wrapper .theme-doc-card-container {
+  min-height: 10rem;
+  padding: 1.15rem 1.2rem !important;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+  color: var(--ink);
+  background: linear-gradient(145deg, rgba(13, 40, 66, 0.76), rgba(4, 17, 31, 0.82));
+  box-shadow: 0 16px 38px rgba(0, 6, 16, 0.2);
+}
+
+.docs-wrapper .theme-doc-card-container:hover {
+  border-color: rgba(98, 212, 255, 0.35);
+  color: var(--ink);
+  background: linear-gradient(145deg, rgba(18, 52, 82, 0.86), rgba(7, 24, 42, 0.9));
+  box-shadow: 0 20px 46px rgba(0, 6, 16, 0.28);
+  transform: translateY(-3px);
+  text-decoration: none;
+}
+
+.docs-wrapper .theme-doc-card-heading {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin: 0 0 0.65rem;
+  padding: 0;
+  border: 0;
+  color: var(--ink);
+  font-size: 1.02rem;
+  line-height: 1.25;
+  letter-spacing: -0.02em;
+}
+
+.docs-wrapper .theme-doc-card-icon {
+  display: inline-flex;
+  width: 2.15rem;
+  height: 2.15rem;
+  flex: 0 0 2.15rem;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(98, 212, 255, 0.18);
+  border-radius: 50%;
+  background: rgba(98, 212, 255, 0.075);
+  font-size: 0.92rem;
+}
+
+.docs-wrapper .theme-doc-card-description {
+  display: block;
+  margin: 0;
+  overflow: visible;
+  color: var(--muted);
+  font-size: 0.83rem;
+  line-height: 1.55;
+  text-overflow: clip;
+  white-space: normal;
+}
+
+.docs-wrapper [class*='generatedIndexPage_'] {
+  width: 100%;
   max-width: 100% !important;
 }
 
-
-
-/* =========================================================
-   14) BLOG — List Page
-   ========================================================= */
-html.blog-wrapper.blog-list-page .mk-post-card {
-  margin: 0 0 30px 0;
+.theme-doc-version-badge,
+.theme-doc-version-banner {
+  border-color: var(--line);
+  background: rgba(98, 212, 255, 0.08);
 }
 
-.blog-wrapper main .blog-post-item,
-.blog-wrapper main article.mk-post-card,
-.blog-wrapper main .mk-post-card article {
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.04), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.03), transparent 55%),
-    rgba(15, 23, 42, 0.96);
-  border: 1px solid rgba(31, 41, 55, 0.9);
-  border-radius: 1.5rem;
-  box-shadow: 0 30px 80px rgba(15, 23, 42, 0.85);
-  padding: 1.4rem 1.4rem 1.2rem;
+.theme-doc-footer {
+  margin-top: 1.5rem;
 }
 
-.blog-wrapper main .blog-post-item,
-.blog-wrapper main article.mk-post-card,
-.blog-wrapper main .mk-post-card article {
-  padding: 1.5rem 1.5rem 1.25rem;  /* ← Matches post page */
+/* Search, dropdowns, and archive lists */
+.dropdown__menu,
+.navbar__search-input {
+  border: 1px solid var(--line);
+  color: var(--ink);
+  background: var(--surface-strong);
+  box-shadow: 0 18px 48px rgba(0, 6, 16, 0.32);
 }
 
+.dropdown__link {
+  color: var(--muted);
+  border-radius: 8px;
+}
 
+.dropdown__link:hover,
+.dropdown__link--active {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.07);
+}
+
+.blog-list-page .pagination-nav,
+.blog-post-page .pagination-nav,
+.docs-wrapper .pagination-nav {
+  margin-top: 1.25rem;
+}
+
+/* Let two-column blog layouts use the full shared 1100px shell. */
 @media (min-width: 997px) {
-  html.docs-wrapper .theme-doc-toc-desktop {
-    margin-right: calc(var(--mk-docs-side-inset) - 58px) !important; /* 57.1 rounded */
+  .blog-wrapper .container > .row:not(:has(> .col--2)) > main.col--7 {
+    max-width: 75%;
+    flex-basis: 75%;
   }
 }
 
-/* =========================================================
-   15) BLOG — Post Page
-   ========================================================= */
-html.blog-wrapper.blog-post-page article {
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(31, 41, 55, 0.9);
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.04), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.03), transparent 55%),
-    rgba(15, 23, 42, 0.96);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: var(--shadow-soft);
-  overflow: hidden;
+/* Tags and author indexes use the same compact inner-card hierarchy. */
+.blog-tags-list-page main > h1,
+.blog-authors-list-page main > h1 {
+  margin: 0 0 1rem;
 }
 
-/* Add padding to header elements (title, date, author, tags) */
-html.blog-wrapper.blog-post-page article > header,
-html.blog-wrapper.blog-post-page article > .theme-blog-post-header {
-  padding: 1.5rem 1.5rem 0 !important;
+.blog-tags-list-page main > section {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
 }
 
-/* Add padding to tags container */
-html.blog-wrapper.blog-post-page article .theme-blog-tags-list,
-html.blog-wrapper.blog-post-page article .margin-vert--md,
-html.blog-wrapper.blog-post-page article > footer {
-  padding-left: 1.5rem !important;
-  padding-right: 1.5rem !important;
+.blog-tags-list-page main > section article {
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+  background: linear-gradient(145deg, rgba(13, 40, 66, 0.68), rgba(4, 17, 31, 0.76));
 }
 
-/* Remove inner pane styling from markdown */
-html.blog-wrapper.blog-post-page article .markdown {
-  padding: 1.5rem 1.5rem 1.25rem !important;
-  background: none !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
+.blog-tags-list-page main > section article h2 {
+  margin: 0 0 0.65rem;
+  padding: 0;
+  border: 0;
+  font-size: 1.15rem;
 }
 
-html.blog-wrapper.blog-post-page article .markdown > :first-child {
-  margin-top: 0 !important;
+.blog-tags-list-page main > section article hr {
+  display: none;
 }
 
-html.blog-wrapper.blog-post-page article .markdown > :last-child {
+.blog-tags-list-page main > section article ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0;
+}
+
+.blog-authors-list-page main > section {
+  display: block;
+  margin: 0;
+}
+
+.blog-authors-list-page main > section > ul {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.blog-authors-list-page main > section > ul > li {
+  min-width: 0;
+  margin: 0;
+  padding: 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+  background: linear-gradient(145deg, rgba(13, 40, 66, 0.68), rgba(4, 17, 31, 0.76));
+}
+
+.blog-authors-list-page main > section > ul > li .avatar {
   margin-bottom: 0 !important;
 }
 
-@media (max-width: 900px) {
-  html.blog-wrapper.blog-post-page article > header,
-  html.blog-wrapper.blog-post-page article > .theme-blog-post-header {
-    padding: 1.1rem 1.1rem 0 !important;
-  }
-  
-  html.blog-wrapper.blog-post-page article .theme-blog-tags-list,
-  html.blog-wrapper.blog-post-page article .margin-vert--md,
-  html.blog-wrapper.blog-post-page article > footer {
-    padding-left: 1.1rem !important;
-    padding-right: 1.1rem !important;
-  }
-  
-  html.blog-wrapper.blog-post-page article .markdown {
-    padding: 1.1rem 1.1rem 1rem !important;
-  }
+/* Docusaurus' archive hero and year columns are normalized to site panels. */
+html.plugin-blog:not(.blog-wrapper) .theme-layout-main {
+  display: block;
+  padding-top: 0;
 }
 
-
-/* =========================================================
-   BLOG — Post Page — Newer / Older post navigation pills
-   ========================================================= */
-
-/* Container */
-html.blog-wrapper.blog-post-page .pagination-nav {
-  margin-top: 1.25rem;
-  gap: 12px;
+html.plugin-blog:not(.blog-wrapper) .hero--primary {
+  width: min(calc(100% - 2rem), calc(100% - 8vw), 1100px);
+  margin: var(--page-gap) auto 0;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  color: var(--ink);
+  background: linear-gradient(145deg, rgba(16, 48, 78, 0.88), rgba(5, 20, 35, 0.9));
+  box-shadow: var(--shadow);
 }
 
-/* Make each side a pill card */
-html.blog-wrapper.blog-post-page .pagination-nav__link {
-  border-radius: var(--radius-full) !important;
-  border: 1px solid rgba(148, 163, 184, 0.22) !important;
-  background: rgba(15, 23, 42, 0.60) !important;
-  backdrop-filter: blur(14px);
-  -webkit-backdrop-filter: blur(14px);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.55) !important;
-  padding: 10px 30px !important;
-  transition:
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast),
-    border-color var(--transition-fast),
-    background var(--transition-fast);
-}
-
-/* Hover */
-html.blog-wrapper.blog-post-page .pagination-nav__link:hover {
-  transform: translateY(-1px);
-  background: rgba(15, 23, 42, 0.80) !important;
-  border-color: rgba(248, 250, 252, 0.22) !important;
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.85) !important;
-}
-
-/* Text styling */
-html.blog-wrapper.blog-post-page .pagination-nav__sublabel {
-  color: var(--muted) !important;
-  font-weight: 400 !important;
-  margin-bottom: 2px;
-}
-
-html.blog-wrapper.blog-post-page .pagination-nav__label {
-  color: var(--text) !important;
-  font-weight: 500 !important;
-}
-
-/* Remove any default underline behavior */
-html.blog-wrapper.blog-post-page .pagination-nav__link {
-  text-decoration: none !important;
-}
-
-/* =========================================================
-   16) BLOG — Typography & Links
-   ========================================================= */
-html.blog-wrapper h1,
-html.blog-wrapper h2,
-html.blog-wrapper h3 {
-  color: var(--text) !important;
-}
-
-html.blog-wrapper .markdown,
-html.blog-wrapper .theme-blog-markdown {
-  color: var(--text) !important;
-}
-
-/* Title Links */
-html.blog-wrapper .theme-blog-post-title a,
-html.blog-wrapper article header h1 a,
-html.blog-wrapper article header h2 a,
-html.blog-wrapper .blog-post-item header h2 a {
-  color: var(--text) !important;
-  text-decoration: none !important;
-}
-
-html.blog-wrapper .theme-blog-post-title a:hover,
-html.blog-wrapper article header h1 a:hover,
-html.blog-wrapper article header h2 a:hover,
-html.blog-wrapper .blog-post-item header h2 a:hover {
-  color: #f8fafc !important;
-  text-decoration: underline !important;
-  text-decoration-color: rgba(148, 163, 184, 0.55) !important;
-  text-underline-offset: 4px;
-}
-
-/* Content Links */
-html.blog-wrapper .markdown a {
-  color: #cbd5f5 !important;
-  text-decoration: none !important;
-}
-
-html.blog-wrapper .markdown a:hover {
-  color: var(--accent) !important;
-  text-decoration: underline !important;
-  text-decoration-color: var(--accent) !important;
-  text-underline-offset: 3px;
-}
-
-/* Remove Infima Link Overrides */
-html.blog-wrapper a {
-  --ifm-link-color: inherit;
-  --ifm-link-hover-color: inherit;
-}
-
-/* =========================================================
-   17) BLOG — Metadata & Authors
-   ========================================================= */
-html.blog-wrapper .theme-blog-post-meta,
-html.blog-wrapper time,
-html.blog-wrapper .margin-vert--md {
-  color: var(--muted) !important;
-}
-
-html.blog-wrapper .avatar__name,
-html.blog-wrapper .avatar__name a {
-  color: var(--text) !important;
-  text-decoration: none !important;
-}
-
-html.blog-wrapper .avatar__name a:hover {
-  color: #f8fafc !important;
-  text-decoration: underline !important;
-  text-decoration-color: rgba(148, 163, 184, 0.55) !important;
-  text-underline-offset: 3px;
-}
-
-html.blog-wrapper .avatar__subtitle,
-html.blog-wrapper .avatar__intro {
-  color: var(--muted) !important;
-}
-
-html.blog-wrapper .avatar a:not(.avatar__photo-link) {
-  color: var(--text) !important;
-  text-decoration: none !important;
-}
-
-html.blog-wrapper .avatar a:not(.avatar__photo-link):hover {
-  color: var(--text) !important;
-  text-decoration: underline !important;
-  text-decoration-color: rgba(148, 163, 184, 0.55) !important;
-  text-underline-offset: 3px;
-}
-
-/* Author social icons - muted with globe icon fix */
-html.blog-wrapper .avatar a svg,
-html.blog-wrapper .theme-blog-author a svg {
-  color: var(--muted) !important;
-  fill: currentColor !important;
-  stroke: none !important;
-}
-
-/* Globe icon only (stroke-based) */
-html.blog-wrapper .avatar a svg[viewBox="0 0 24 24"],
-html.blog-wrapper .theme-blog-author a svg[viewBox="0 0 24 24"] {
-  fill: none !important;
-  stroke: currentColor !important;
-}
-
-/* Hover state for all icons */
-html.blog-wrapper .avatar a:hover svg,
-html.blog-wrapper .theme-blog-author a:hover svg {
-  color: var(--text) !important;
-}
-/* =========================================================
-   18) BLOG — Tags
-   ========================================================= */
-html.blog-wrapper a.tag,
-html.blog-wrapper .tag,
-html.blog-wrapper a.badge,
-html.blog-wrapper .badge,
-html.blog-wrapper .badge--secondary,
-html.blog-wrapper a[class*="tag"],
-html.blog-wrapper a[href^="/blog/tags/"],
-html.blog-wrapper a[href*="/tags/"] {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.4rem !important;
-  padding: 6px 12px !important;
-  border-radius: var(--radius-full) !important;
-  background: rgba(15, 23, 42, 0.55) !important;
-  border: 1px solid rgba(148, 163, 184, 0.28) !important;
-  color: var(--muted) !important;
-  text-decoration: none !important;
-  font-weight: 400 !important;
-  line-height: 1 !important;
-  transition:
-    background var(--transition-fast),
-    color var(--transition-fast),
-    border-color var(--transition-fast),
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast);
-}
-
-html.blog-wrapper a.tag:hover,
-html.blog-wrapper a.badge:hover,
-html.blog-wrapper a[href^="/blog/tags/"]:hover,
-html.blog-wrapper a[href*="/tags/"]:hover {
-  color: var(--text) !important;
-  background: rgba(15, 23, 42, 0.95) !important;
-  border-color: rgba(31, 41, 55, 0.9) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.55) !important;
-}
-
-/* =========================================================
-   19) BLOG — Read More Button
-   ========================================================= */
-html.blog-wrapper a.button,
-html.blog-wrapper .button,
-html.blog-wrapper article a.button,
-html.blog-wrapper .blog-post-item a.button,
-html.blog-wrapper article a[class*="button"] {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  padding: 7px 14px !important;
-  border-radius: var(--radius-full) !important;
-  background: linear-gradient(to right, rgba(15, 23, 42, 0.96), rgba(15, 23, 42, 0.85)) !important;
-  border: 1px solid rgba(148, 163, 184, 0.4) !important;
-  color: var(--text) !important;
-  text-decoration: none !important;
-  font-weight: 400 !important;
-  box-shadow: 0 10px 30px rgba(15, 23, 42, 0.6) !important;
-  transition:
-    border-color var(--transition-fast),
-    background var(--transition-fast),
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast);
-}
-
-html.blog-wrapper article a.button:hover,
-html.blog-wrapper .blog-post-item a.button:hover,
-html.blog-wrapper article a[class*="button"]:hover {
-  border-color: rgba(248, 250, 252, 0.25) !important;
-  background: rgba(15, 23, 42, 0.95) !important;
-  transform: translateY(-1px);
-  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9) !important;
-}
-
-/* =========================================================
-   20) BLOG — Sidebar (Recent Posts)
-   ========================================================= */
-
-/* ---- Pane (wraps the whole Recent Posts nav) ---- */
-html.blog-wrapper aside.col.col--3 nav[class*="sidebar_"] {
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(31, 41, 55, 0.9);
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.04), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.03), transparent 55%),
-    rgba(15, 23, 42, 0.80);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
-  box-shadow: var(--shadow-soft);
-  padding: 0.85rem; /* inner breathing room */
-}
-
-/* Remove default list spacing inside the pane */
-html.blog-wrapper aside.col.col--3 nav[class*="sidebar_"] ul {
-  margin: 0 !important;
-  padding: 0 !important;
-}
-
-/* ---- Link base styles (pill-shaped items) ---- */
-html.blog-wrapper aside.col.col--3 nav[class*="sidebar_"] a.sidebarItemLink_mo7H {
-  display: flex;
-  align-items: center;
+html.plugin-blog:not(.blog-wrapper) .hero--primary .container {
   width: 100%;
-  padding: 6px 14px !important;      /* pill proportions */
-  border-radius: var(--radius-full); /* true pill */
-  color: var(--muted) !important;
-  text-decoration: none !important;
-  line-height: 1.2;
-  transition:
-    background var(--transition-fast),
-    color var(--transition-fast),
-    border-color var(--transition-fast),
-    transform var(--transition-fast);
+  padding: 0;
 }
 
-/* Hover (inactive items) */
-html.blog-wrapper aside.col.col--3 nav[class*="sidebar_"] a.sidebarItemLink_mo7H:hover:not([class*="sidebarItemLinkActive_"]) {
-  background: rgba(15, 23, 42, 0.45) !important;
-  color: var(--text) !important;
+html.plugin-blog:not(.blog-wrapper) .hero__title {
+  margin: 0;
+  color: var(--ink);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
 }
 
-/* Active item (neutral, not turquoise) */
-html.blog-wrapper aside.col.col--3 nav[class*="sidebar_"] a.sidebarItemLink_mo7H[class*="sidebarItemLinkActive_"],
-html.blog-wrapper aside.col.col--3 nav[class*="sidebar_"] a.sidebarItemLink_mo7H[aria-current="page"] {
-  background: rgba(15, 23, 42, 0.65) !important;
-  border: 1px solid rgba(148, 163, 184, 0.18) !important;
-  color: var(--text) !important;
-  -webkit-text-fill-color: var(--text) !important;
+html.plugin-blog:not(.blog-wrapper) .hero__subtitle {
+  display: none;
 }
 
-/* Ensure any children inherit the forced active color */
-html.blog-wrapper aside.col.col--3 nav[class*="sidebar_"] a.sidebarItemLink_mo7H[class*="sidebarItemLinkActive_"] *,
-html.blog-wrapper aside.col.col--3 nav[class*="sidebar_"] a.sidebarItemLink_mo7H[aria-current="page"] * {
-  color: inherit !important;
+html.plugin-blog:not(.blog-wrapper) .theme-layout-main > main > section {
+  width: min(calc(100% - 2rem), calc(100% - 8vw), 1100px);
+  margin: 1rem auto 0 !important;
 }
 
-/* =========================================================
-   21) AUTHORS PAGE — Author Cards
-   ========================================================= */
-html.blog-authors-list-page main ul {
-  padding-left: 0 !important;
-  margin-left: 0 !important;
+html.plugin-blog:not(.blog-wrapper) .theme-layout-main > main > section > .container {
+  width: 100%;
+  padding: 0;
 }
 
-html.blog-authors-list-page .authorListItem_n3yI {
-  list-style: none;
-  margin: 0 0 30px 0 !important;
-  border-radius: var(--radius-xl);
-  border: 1px solid rgba(31, 41, 55, 0.9);
-  background:
-    radial-gradient(circle at top left, rgba(56, 189, 248, 0.04), transparent 60%),
-    radial-gradient(circle at bottom right, rgba(56, 189, 248, 0.03), transparent 55%),
-    rgba(15, 23, 42, 0.96);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  box-shadow: var(--shadow-soft);
-  padding: 16px 18px !important;
+html.plugin-blog:not(.blog-wrapper) .theme-layout-main > main .row {
+  gap: 0.8rem;
+  margin: 0;
 }
 
-html.blog-authors-list-page .authorName_yefp {
-  color: var(--text) !important;
-  text-decoration: none !important;
+html.plugin-blog:not(.blog-wrapper) .theme-layout-main > main .col--4 {
+  max-width: none;
+  flex: 1 1 0;
+  margin: 0 !important;
+  padding: 1.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-inner);
+  background: linear-gradient(145deg, rgba(13, 40, 66, 0.68), rgba(4, 17, 31, 0.76));
 }
 
-html.blog-authors-list-page a:has(.authorName_yefp) {
-  color: inherit !important;
-  text-decoration: none !important;
+html.plugin-blog:not(.blog-wrapper) .theme-layout-main > main .col--4 h3 {
+  margin-top: 0;
 }
 
-html.blog-authors-list-page a:has(.authorName_yefp):hover .authorName_yefp {
-  text-decoration: underline !important;
-  text-decoration-color: rgba(148, 163, 184, 0.55) !important;
-  text-underline-offset: 3px;
+/* Docusaurus' native 404 should read as another site panel, not a framework page. */
+html.plugin-native .theme-layout-main {
+  display: block;
+  padding: var(--page-gap) 0 1rem;
 }
 
-html.blog-authors-list-page .authorTitle_nd0D,
-html.blog-authors-list-page .authorBlogPostCount_iiJ5 {
-  color: var(--muted) !important;
+html.plugin-native .theme-layout-main > main {
+  width: min(calc(100% - 2rem), calc(100% - 8vw), 1100px);
+  margin: 0 auto !important;
+  padding: clamp(1.5rem, 4vw, 2.25rem);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: linear-gradient(145deg, rgba(16, 48, 78, 0.88), rgba(5, 20, 35, 0.9));
+  box-shadow: var(--shadow);
 }
 
-/* =========================================================
-   22) AUTHORS PAGE — Social Icons
-   ========================================================= */
-html.blog-authors-list-page .authorSocials_rSDt {
-  display: flex !important;
-  gap: 2px !important;
-  flex-wrap: wrap !important;
-  overflow: visible !important;
+html.plugin-native .theme-layout-main > main h1 {
+  margin: 0 0 0.8rem;
+  color: var(--ink);
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  line-height: 1.05;
+  letter-spacing: -0.045em;
 }
 
-html.blog-authors-list-page a.authorSocialLink_owbf {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  line-height: 0 !important;
-  padding: 6px 8px !important;
-  border-radius: var(--radius-full) !important;
-  overflow: visible !important;
-  color: var(--muted) !important;
-  text-decoration: none !important;
-  transition: background var(--transition-fast), color var(--transition-fast);
-}
-
-html.blog-authors-list-page a.authorSocialLink_owbf:hover {
-  color: var(--text) !important;
-  background: rgba(15, 23, 42, 0.55) !important;
-  border: 1px solid rgba(148, 163, 184, 0.18) !important;
-}
-
-html.blog-authors-list-page a.authorSocialLink_owbf svg {
-  display: block !important;
-  width: 16px !important;
-  height: 16px !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  overflow: visible !important;
-}
-
-/* Default: filled icons (X, GitHub, LinkedIn) */
-html.blog-authors-list-page .authorSocialLink_owbf svg {
-  fill: currentColor !important;
-  stroke: none !important;
-}
-
-/* Globe icon only (stroke-based) */
-html.blog-authors-list-page .authorSocialLink_owbf svg[viewBox="0 0 24 24"] {
-  fill: none !important;
-  stroke: currentColor !important;
-}
-
-html.blog-authors-list-page a.authorSocialLink_owbf svg path {
-  background: transparent !important;
-}
-
-/* =========================================================
-   23) BUTTONS (General)
-   ========================================================= */
-.button {
-  border-radius: var(--radius-full);
-  transition:
-    transform var(--transition-fast),
-    box-shadow var(--transition-fast),
-    background var(--transition-fast);
-}
-
-.button--primary {
-  background: radial-gradient(circle at top left, #0ea5e9, #0369a1);
-  box-shadow: 0 20px 50px rgba(8, 47, 73, 0.95);
-}
-
-.button--primary:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 25px 60px rgba(8, 47, 73, 1);
-}
-
-/* =========================================================
-   24) FOOTER
-   ========================================================= */
-.footer {
-  border-top: 1px solid rgba(31, 41, 55, 0.8);
-  padding-bottom: 2.5rem;
+html.plugin-native .theme-layout-main > main p:last-child {
+  margin-bottom: 0;
 }
 
 @media (min-width: 900px) {
-  .footer {
-    padding-bottom: 4rem;
+  .navbar__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .navbar__items:first-child {
+    display: contents;
+  }
+
+  .navbar__toggle {
+    display: none !important;
+  }
+
+  .navbar__brand {
+    grid-column: 1;
+    justify-self: start;
+  }
+
+  .mk-navbar-links {
+    grid-column: 2;
+    justify-self: center;
+  }
+
+  .navbar__items--right {
+    display: flex !important;
+    grid-column: 3;
+    justify-self: end;
+    margin-left: 0;
+  }
+
+  .navbar__items--right > .navbar__item {
+    display: block;
   }
 }
 
-.footer__link-item {
-  color: var(--muted);
-  border-bottom: 1px dashed rgba(75, 85, 99, 0.8);
-  transition: color var(--transition-fast), border-color var(--transition-fast);
+@media (max-width: 1180px) {
+  .theme-doc-toc-desktop {
+    display: none;
+  }
 }
 
-.footer__link-item:hover {
-  color: var(--text);
-  border-bottom-style: solid;
+@media (max-width: 899px) {
+  .navbar__inner,
+  .navbar__items:first-child {
+    display: flex;
+  }
+
+  .mk-navbar-links,
+  .navbar__items--right {
+    display: none;
+  }
+
+  .theme-layout-main,
+  .theme-blog-list-page-main,
+  .theme-blog-post-page-main,
+  .theme-blog-tag-list-page-main,
+  .theme-blog-tags-posts-page-main,
+  .theme-blog-author-page-main,
+  .theme-blog-authors-list-page-main,
+  .theme-blog-archive-page-main {
+    padding-top: 1rem;
+  }
+
+  .docs-wrapper .main-wrapper {
+    margin-top: 1rem;
+  }
+
+  .theme-doc-sidebar-container {
+    border: 0 !important;
+    border-radius: 0;
+    background: var(--navy-deep);
+    box-shadow: none;
+  }
+
+  .theme-doc-sidebar-menu {
+    padding: 0.75rem;
+  }
+
+  .theme-doc-markdown {
+    padding: 0;
+  }
 }
 
-/* =========================================================
-   25) ACCESSIBILITY — Reduced Motion
-   ========================================================= */
+@media (max-width: 640px) {
+  html {
+    scroll-padding-top: 6rem;
+  }
+
+  .navbar {
+    top: 1rem;
+  }
+
+  .theme-blog-list-page-main,
+  .theme-blog-post-page-main,
+  .theme-blog-tag-list-page-main,
+  .theme-blog-tags-posts-page-main,
+  .theme-blog-author-page-main,
+  .theme-blog-authors-list-page-main,
+  .theme-blog-archive-page-main {
+    padding-right: 0.75rem;
+    padding-left: 0.75rem;
+  }
+
+  .mk-post-card,
+  article.blog-post-item,
+  html.blog-post-page article,
+  html.docs-wrapper main article:not(.margin-top--lg):not([class*='docCardListItem_']),
+  .theme-blog-tags-list-page,
+  .theme-blog-authors-list-page,
+  .theme-blog-archive-page {
+    border-radius: var(--radius);
+  }
+
+  .blog-tags-list-page main > section,
+  .blog-authors-list-page main > section > ul {
+    grid-template-columns: 1fr;
+  }
+
+  html.plugin-blog:not(.blog-wrapper) .theme-layout-main > main .row {
+    flex-direction: column;
+  }
+
+  html.plugin-blog:not(.blog-wrapper) .theme-layout-main > main .col--4 {
+    width: 100%;
+  }
+
+  .theme-blog-post-title,
+  .theme-doc-markdown h1,
+  .theme-blog-tags-list-page h1,
+  .theme-blog-authors-list-page h1,
+  .theme-blog-archive-page h1 {
+    font-size: clamp(1.9rem, 10vw, 2.65rem);
+  }
+
+  .pagination-nav {
+    grid-template-columns: 1fr;
+  }
+
+  .pagination-nav__link--next {
+    grid-column: 1;
+  }
+
+  pre {
+    font-size: 0.78rem;
+  }
+}
+
+@media (max-width: 520px) {
+  .navbar {
+    width: calc(100% - 1.6rem);
+    padding-left: 0.75rem;
+  }
+
+  .navbar__title::after {
+    max-width: 11rem;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  nav.theme-layout-navbar.navbar.navbar--fixed-top,
-  nav.theme-layout-navbar.navbar.navbar--fixed-top .navbar__link,
-  nav.theme-layout-navbar.navbar.navbar--fixed-top .mk-pill-btn,
-  .button,
-  a {
-    transition: none !important;
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
   }
 }
-
-
-

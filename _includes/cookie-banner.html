@@ -1,0 +1,39 @@
+<div id="cookie-banner">
+  <div class="cookie-text">
+    This website uses cookies for analytics to help me understand traffic and improve my content.
+    You can choose whether to allow analytics cookies.
+  </div>
+  <button id="cookie-accept" type="button">Allow analytics</button>
+  <button id="cookie-decline" type="button">Decline</button>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const banner = document.getElementById('cookie-banner');
+    const acceptButton = document.getElementById('cookie-accept');
+    const declineButton = document.getElementById('cookie-decline');
+    if (!banner || !acceptButton || !declineButton) return;
+
+    const consent = localStorage.getItem('cookie_consent');
+    if (consent === 'accepted') {
+      banner.style.display = 'none';
+      enableAnalytics();
+      return;
+    }
+    if (consent === 'declined') {
+      banner.style.display = 'none';
+      return;
+    }
+
+    banner.style.display = 'flex';
+    acceptButton.addEventListener('click', function () {
+      localStorage.setItem('cookie_consent', 'accepted');
+      banner.style.display = 'none';
+      enableAnalytics();
+    });
+    declineButton.addEventListener('click', function () {
+      localStorage.setItem('cookie_consent', 'declined');
+      banner.style.display = 'none';
+    });
+  });
+</script>

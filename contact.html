@@ -1,47 +1,27 @@
 ---
+layout: default
 title: Contact • Markos Ioannou
 description: Contact Markos Ioannou for collaboration, questions, or opportunities in data analytics and machine learning.
+nav_active: contact
+header_cta: home
+turnstile: true
 ---
-<!doctype html>
-<html lang="en">
-<head>
-  {% include preview.html %}
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-  <!-- Uses your existing site stylesheet -->
-  <link rel="stylesheet" href="/styles.css" />
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
-</head>
-
-<body>
-  <div class="shell">
-    <header class="nav">
-      <div class="nav-left">
-        <div class="logo-circle">M</div>
-        <div class="brand-text">
-          <div class="brand-name">Markos Ioannou</div>
-          <div class="brand-tag">Contact</div>
-        </div>
-      </div>
-
-      <a class="btn-main" href="index.html">← Back</a>
-    </header>
-
-    <main>
+<main class="site-main contact-layout">
       <!-- LEFT: form panel -->
-      <section class="panel">
+      <section class="panel contact-panel" aria-labelledby="contact-title">
         <div class="badge-row">
           <span class="badge-pill">Contact</span>
-          Send me a message
+          <span>Send me a message</span>
         </div>
 
-        <h1>Let’s talk</h1>
+        <p class="eyebrow contact-eyebrow">Start a conversation</p>
+        <h1 id="contact-title">Let’s talk.</h1>
         <p class="subtitle">
-          Fill in the form and I’ll get back to you.
+          Have a question, an opportunity, or a project in mind? Share the details below and I’ll get back to you.
         </p>
 
-        <form id="contact-form" class="contact-form" novalidate>
+        <form id="contact-form" class="contact-form" novalidate aria-describedby="form-status">
           <div class="field-row">
             <div class="field">
               <label for="name">Name</label>
@@ -64,57 +44,85 @@ description: Contact Markos Ioannou for collaboration, questions, or opportuniti
             <textarea id="message" name="message" rows="6" required></textarea>
           </div>
 
-          <!-- Turnstile (anti-bot) -->
-          <div class="cf-turnstile"
-               data-sitekey="0x4AAAAAACGPrYNWH3UJ-UKd"
-               data-theme="dark"
-               data-callback="onTurnstileOk"
-               data-expired-callback="onTurnstileExpired">
+          <div class="form-security">
+            <div class="form-security-copy">
+              <span class="meta-label">Spam protection</span>
+              <span class="meta-sub">Complete the check before sending.</span>
+            </div>
+
+            <!-- OWNER SETTING: replace only when you create a new Cloudflare Turnstile widget. -->
+            <div class="cf-turnstile"
+                 data-sitekey="0x4AAAAAACGPrYNWH3UJ-UKd"
+                 data-theme="dark"
+                 data-callback="onTurnstileOk"
+                 data-expired-callback="onTurnstileExpired"
+                 data-error-callback="onTurnstileError">
+            </div>
           </div>
           
           <div class="form-actions">
             <button class="btn-main" id="submit-btn" type="submit">✉️ Send message</button>
-            <span id="form-status" class="form-status" aria-live="polite"></span>
+            <span id="form-status" class="form-status" role="status" aria-live="polite"></span>
           </div>
         </form>
 
-        <!-- Note:
-             If you later add Turnstile, we’ll drop the widget right here above the button,
-             and include its token in the payload. -->
       </section>
 
-      <!-- RIGHT: links panel -->
-      <aside class="panel-right">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-title">Find me</div>
-            <div class="card-kicker">Links</div>
-          </div>
-
-          <div class="card-link-row">
-            <!-- Note: replace these with your real URLs -->
-            <a class="card-link" href="https://www.linkedin.com/in/markosioannou" target="_blank" rel="noreferrer">LinkedIn</a>
-            <a class="card-link" href="https://github.com/markosioannou" target="_blank" rel="noreferrer">GitHub</a>
-            <a class="card-link" href="mailto:markos@markos-ioannou.com">Email</a>
-          </div>
+      <!-- RIGHT: alternate contact routes -->
+      <aside class="panel contact-side" aria-labelledby="contact-options-title">
+        <div class="contact-side-heading">
+          <p class="eyebrow">Professional profiles</p>
+          <h2 id="contact-options-title">Connect elsewhere.</h2>
+          <p>Use the protected form for messages. You can also find my work and professional profile here.</p>
         </div>
 
-   
-      </aside>
-    </main>
+        <div class="contact-options">
+          <a class="contact-option" href="https://www.linkedin.com/in/markosioannou" target="_blank" rel="noreferrer noopener">
+            <span class="contact-option-icon" aria-hidden="true">in</span>
+            <span>
+              <strong>LinkedIn</strong>
+              <small>Professional profile</small>
+            </span>
+            <span class="contact-option-arrow" aria-hidden="true">↗</span>
+          </a>
 
-  {% include footer.html %}
-  </div>
+          <a class="contact-option" href="https://github.com/markosioannou" target="_blank" rel="noreferrer noopener">
+            <span class="contact-option-icon" aria-hidden="true">&lt;/&gt;</span>
+            <span>
+              <strong>GitHub</strong>
+              <small>Projects and code</small>
+            </span>
+            <span class="contact-option-arrow" aria-hidden="true">↗</span>
+          </a>
+        </div>
+
+        <div class="contact-note">
+          <span class="pill-dot" aria-hidden="true"></span>
+          <div>
+            <strong>Open to opportunities</strong>
+            <p>Analytics, data science, machine learning, and bioinformatics conversations are welcome.</p>
+          </div>
+        </div>
+      </aside>
+</main>
 
 <script>
   // Footer year
 
-  // ✅ Your Worker endpoint (change if you ever rename it)
+  // OWNER SETTING: update only if you move or rename the contact-form Worker.
   const WORKER_ENDPOINT = "https://contact-form.markosioannou.workers.dev";
 
   const form = document.getElementById("contact-form");
   const statusEl = document.getElementById("form-status");
   const submitBtn = document.getElementById("submit-btn");
+  const turnstileWidget = document.querySelector(".cf-turnstile");
+  const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+
+  // Cloudflare's production key intentionally rejects localhost. Use its official
+  // always-pass test sitekey only for the local visual preview.
+  if (isLocalPreview && turnstileWidget) {
+    turnstileWidget.dataset.sitekey = "1x00000000000000000000AA";
+  }
 
   // Optional: clear status when user edits any field
   form.addEventListener("input", () => {
@@ -172,28 +180,67 @@ description: Contact Markos Ioannou for collaboration, questions, or opportuniti
     return false;
   }
 
-  // Client-side (best-effort) rate limit: max 3 submits per 10 minutes
+  // Client-side (best-effort) rate limit: max 3 valid send attempts per 10 minutes.
+  // The Worker must continue enforcing its own server-side limit.
   const RL_KEY = "contact_rl";
+  const RATE_LIMIT_WINDOW_MS = 10 * 60 * 1000;
+  const RATE_LIMIT_MAX_ATTEMPTS = 3;
+
+  function readRecentAttempts() {
+    const now = Date.now();
+    try {
+      const raw = localStorage.getItem(RL_KEY);
+      const attempts = raw ? JSON.parse(raw) : [];
+      if (!Array.isArray(attempts)) throw new Error("Invalid rate-limit storage");
+
+      return attempts.filter((timestamp) => (
+        Number.isFinite(timestamp) && timestamp <= now && now - timestamp < RATE_LIMIT_WINDOW_MS
+      ));
+    } catch {
+      // Corrupt or unavailable storage should never prevent someone from contacting you.
+      try { localStorage.removeItem(RL_KEY); } catch {}
+      return [];
+    }
+  }
+
   function canSubmitNow() {
     const now = Date.now();
-    const windowMs = 10 * 60 * 1000;
-    const max = 3;
-
-    const raw = localStorage.getItem(RL_KEY);
-    const arr = raw ? JSON.parse(raw) : [];
-    const fresh = arr.filter((ts) => now - ts < windowMs);
-
-    if (fresh.length >= max) {
-      const minutes = Math.ceil((windowMs - (now - fresh[0])) / 60000);
+    const fresh = readRecentAttempts();
+    if (fresh.length >= RATE_LIMIT_MAX_ATTEMPTS) {
+      const minutes = Math.ceil((RATE_LIMIT_WINDOW_MS - (now - fresh[0])) / 60000);
       return { ok: false, minutes };
     }
 
-    fresh.push(now);
-    localStorage.setItem(RL_KEY, JSON.stringify(fresh));
     return { ok: true };
   }
 
-  // ✅ Turnstile helpers
+  function recordSubmitAttempt() {
+    try {
+      const fresh = readRecentAttempts();
+      fresh.push(Date.now());
+      localStorage.setItem(RL_KEY, JSON.stringify(fresh));
+    } catch {
+      // Private browsing or blocked storage: rely on the Worker's server-side protection.
+    }
+  }
+
+  // Turnstile callbacks are global because the Cloudflare widget reads their names from HTML.
+  window.onTurnstileOk = () => {
+    if (/anti-spam check/i.test(statusEl.textContent)) {
+      statusEl.textContent = "";
+    }
+  };
+
+  window.onTurnstileExpired = () => {
+    statusEl.textContent = "The anti-spam check expired. Please complete it again.";
+  };
+
+  window.onTurnstileError = () => {
+    statusEl.textContent = "The anti-spam check could not load. Please refresh or use email instead.";
+    return true;
+  };
+
+  // Turnstile helpers
   function getTurnstileToken() {
     try {
       // This works for the common Turnstile setups
@@ -216,14 +263,6 @@ description: Contact Markos Ioannou for collaboration, questions, or opportuniti
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusEl.textContent = "";
-
-    // local rate limit (UX)
-    const gate = canSubmitNow();
-    if (!gate.ok) {
-      statusEl.textContent = `Please wait ~${gate.minutes} min before trying again.`;
-      resetTurnstileIfPresent();
-      return;
-    }
 
     const payload = {
       name: form.name.value.trim(),
@@ -256,9 +295,18 @@ description: Contact Markos Ioannou for collaboration, questions, or opportuniti
     // Turnstile must be completed
     if (!payload.turnstileToken) {
       statusEl.textContent = "Please complete the anti-spam check.";
+      return;
+    }
+
+    // Only a fully validated attempt consumes the client-side quota.
+    const gate = canSubmitNow();
+    if (!gate.ok) {
+      statusEl.textContent = `Please wait about ${gate.minutes} minute${gate.minutes === 1 ? "" : "s"} before trying again.`;
       resetTurnstileIfPresent();
       return;
     }
+
+    recordSubmitAttempt();
 
     submitBtn.disabled = true;
     statusEl.textContent = "Sending…";
@@ -298,5 +346,3 @@ description: Contact Markos Ioannou for collaboration, questions, or opportuniti
     }
   });
 </script>
-</body>
-</html>
