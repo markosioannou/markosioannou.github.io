@@ -5,6 +5,7 @@ import {useLocation} from '@docusaurus/router';
 const links = [
   {label: 'About', href: '/#about'},
   {label: 'Projects', href: '/#projects'},
+  {label: 'Experience', href: '/#experience'},
   {label: 'Contact', href: '/contact.html'},
   {label: 'Blog', href: '/blog/', section: 'blog'},
   {label: 'Docs', href: '/blog/docs/intro', section: 'docs'},

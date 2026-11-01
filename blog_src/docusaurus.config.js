@@ -8,7 +8,7 @@ const baseUrl = '/blog/';
 const config = {
   title: 'Markos Ioannou · Data & Analytics',
   tagline:
-    'Personal website of Markos Ioannou, featuring data analytics and machine learning projects, skills, and experience.',
+    'Reconciliation Analyst with an MSc in Data Science, working across financial data, analytics, machine learning, and bioinformatics.',
   favicon: 'img/favicon.ico',
 
   url: siteUrl,
@@ -63,9 +63,9 @@ const config = {
         name: 'Markos Ioannou',
         url: siteUrl,
         image: `${siteUrl}/assets/images/profile.jpeg`,
-        jobTitle: 'Data & Analytics · Bioinformatics',
+        jobTitle: 'Reconciliation Analyst',
         description:
-          'Data analytics and machine learning professional with a focus on applied data science, insights, and real-world problem solving.',
+          'Reconciliation Analyst using Excel automation, custom VBA toolbars, Python, and AI-assisted workflows for data extraction, manipulation, standardisation, and quality improvement.',
         sameAs: [
           'https://www.linkedin.com/in/markosioannou',
           'https://github.com/markosioannou',
@@ -78,31 +78,16 @@ const config = {
           'SQL',
           'Statistics',
           'Data Visualization',
+          'Financial Reconciliation',
+          'Data Quality',
+          'Microsoft Excel',
+          'VBA',
           'Bioinformatics',
           'Healthcare Data Science',
           'Artificial Intelligence',
         ],
         mainEntityOfPage: { '@id': `${siteUrl}/#website` },
-        worksFor: { '@id': `${siteUrl}/#organization` },
-      }),
-    },
-
-    // JSON-LD Organization
-    {
-      tagName: 'script',
-      attributes: { type: 'application/ld+json' },
-      innerHTML: JSON.stringify({
-        '@context': 'https://schema.org',
-        '@type': 'Organization',
-        '@id': `${siteUrl}/#organization`,
-        name: 'Markos Ioannou',
-        url: `${siteUrl}/`,
-        logo: `${siteUrl}/assets/images/logo.png`,
-        sameAs: [
-          'https://www.linkedin.com/in/markosioannou',
-          'https://github.com/markosioannou',
-        ],
-        founder: { '@id': `${siteUrl}#person` },
+        worksFor: { '@type': 'Organization', name: 'Tiebreak Solutions' },
       }),
     },
 
@@ -116,7 +101,7 @@ const config = {
         '@id': `${siteUrl}/#website`,
         url: `${siteUrl}/`,
         name: 'Markos Ioannou',
-        publisher: { '@id': `${siteUrl}/#organization` },
+        publisher: { '@id': `${siteUrl}#person` },
       }),
     },
   ],
@@ -136,6 +121,19 @@ const config = {
           onInlineAuthors: 'warn',
           onUntruncatedBlogPosts: 'warn',
         },
+        sitemap: {
+          ignorePatterns: [
+            '/blog/',
+            '/blog/archive/**',
+            '/blog/authors/**',
+            '/blog/tags/**',
+            '/blog/docs/**',
+            '/blog/first-blog-post/**',
+            '/blog/long-blog-post/**',
+            '/blog/mdx-blog-post/**',
+            '/blog/welcome/**',
+          ],
+        },
         theme: { customCss: './src/css/custom.css' },
       }),
     ],
@@ -149,6 +147,9 @@ const config = {
       // Extra global meta defaults
       metadata: [
         { name: 'twitter:card', content: 'summary_large_image' },
+        // The current Docusaurus content is placeholder/demo material.
+        // Remove this when original docs and posts are ready to be indexed.
+        { name: 'robots', content: 'noindex, nofollow' },
       ],
 
       colorMode: {

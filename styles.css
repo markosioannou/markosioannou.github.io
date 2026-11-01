@@ -92,6 +92,19 @@ h1 { max-width: 720px; margin: 1.2rem 0 .8rem; font-size: clamp(2.25rem, 4.6vw, 
 .project-placeholder span { color: var(--cyan); }
 code { color: var(--cyan); }
 
+.experience-panel { grid-column: 1 / -1; padding: clamp(1.25rem, 3vw, 2rem); }
+.experience-heading { position: relative; z-index: 1; display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(280px, .9fr); gap: 1.25rem 2rem; align-items: end; margin-bottom: 1rem; }
+.experience-heading h2 { max-width: 42rem; margin: .35rem 0 0; font-size: clamp(1.55rem, 3vw, 2.35rem); line-height: 1.08; letter-spacing: -.04em; }
+.experience-heading > p { max-width: 35rem; margin: 0; color: var(--muted); font-size: .9rem; }
+.experience-grid { position: relative; z-index: 1; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .8rem; }
+.experience-card { min-width: 0; padding: 1.15rem; border: 1px solid rgba(172,208,237,.13); border-radius: 17px; background: linear-gradient(140deg, rgba(20,55,85,.42), rgba(4,17,31,.5)); }
+.experience-card--current { border-color: rgba(98,212,255,.34); background: linear-gradient(140deg, rgba(24,66,101,.58), rgba(4,17,31,.56)); }
+.experience-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .75rem 1rem; }
+.experience-top h3 { margin: 0; font-size: 1rem; line-height: 1.25; }
+.experience-org { margin: .24rem 0 0 !important; color: var(--cyan) !important; font-size: .75rem !important; }
+.experience-date { flex: 0 0 auto; padding: .22rem .48rem; border: 1px solid var(--line); border-radius: 999px; color: #c4d4e4; background: rgba(1,12,25,.28); font-size: .7rem; white-space: nowrap; }
+.experience-card > p { margin: .72rem 0 .85rem; color: var(--muted); font-size: .84rem; }
+
 .footer { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: .6rem; margin-top: 1.25rem; padding: 1rem .2rem 0; border-top: 1px solid var(--line); color: var(--muted); font-size: .76rem; }
 .footer-links { display: flex; flex-wrap: wrap; gap: .7rem; }
 .footer-links a { text-decoration: none; color: var(--muted); }
@@ -178,6 +191,8 @@ code { color: var(--cyan); }
   .site-main { gap: 1rem; margin-top: 1rem; }
   .hero-panel { padding: clamp(1.5rem, 5vw, 2.5rem); }
   .panel-right { gap: .7rem; }
+  .experience-heading { grid-template-columns: 1fr; align-items: start; }
+  .experience-grid { grid-template-columns: 1fr; }
   .contact-layout { align-items: start; }
   .contact-side { min-height: 0; }
   .contact-note { margin-top: .25rem; }
@@ -208,6 +223,13 @@ code { color: var(--cyan); }
   .card p { font-size: .82rem; line-height: 1.6; }
   .card-link-row { gap: .4rem; }
   .project-placeholder, .card-link { max-width: 100%; }
+  .experience-panel { padding: 1.1rem; border-radius: 20px; }
+  .experience-heading { gap: .65rem; margin-bottom: .85rem; }
+  .experience-heading h2 { font-size: 1.55rem; }
+  .experience-heading > p { font-size: .82rem; }
+  .experience-card { padding: 1rem; border-radius: 15px; }
+  .experience-top { display: grid; gap: .55rem; }
+  .experience-date { justify-self: start; }
   .contact-panel, .contact-side { padding: 1.2rem; border-radius: 20px; }
   .contact-panel .badge-row { margin-bottom: 1.1rem; }
   .contact-panel h1 { font-size: clamp(2.3rem, 11vw, 3.2rem); line-height: 1.03; }
