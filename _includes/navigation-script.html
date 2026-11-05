@@ -16,5 +16,12 @@
         menu.hidden = true;
       });
     });
+    document.addEventListener("keydown", (event) => {
+      if (event.key === "Escape" && button.getAttribute("aria-expanded") === "true") {
+        button.setAttribute("aria-expanded", "false");
+        menu.hidden = true;
+        button.focus();
+      }
+    });
   });
 </script>

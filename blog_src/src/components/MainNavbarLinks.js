@@ -15,12 +15,12 @@ function isActive(pathname, section) {
   if (section === 'blog') {
     return (
       (pathname === '/blog' || pathname.startsWith('/blog/')) &&
-      !pathname.startsWith('/blog/docs/')
+      !(pathname === '/blog/docs' || pathname.startsWith('/blog/docs/'))
     );
   }
 
   if (section === 'docs') {
-    return pathname.startsWith('/blog/docs/');
+    return pathname === '/blog/docs' || pathname.startsWith('/blog/docs/');
   }
 
   return false;
@@ -34,7 +34,7 @@ export default function MainNavbarLinks({mobile = false, onClick}) {
       const active = isActive(pathname, section);
 
       return (
-        <li className="menu__list-item" key={label}>
+        <li className={clsx('menu__list-item', section === 'blog' && 'mk-menu-section-start')} key={label}>
           <a
             aria-current={active ? 'page' : undefined}
             className={clsx('menu__link', active && 'menu__link--active')}

@@ -7,7 +7,7 @@ header_cta: home
 turnstile: true
 ---
 
-<main class="site-main contact-layout">
+<main class="site-main contact-layout" id="main-content" tabindex="-1">
       <!-- LEFT: form panel -->
       <section class="panel contact-panel" aria-labelledby="contact-title">
         <div class="badge-row">
@@ -263,6 +263,9 @@ turnstile: true
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     statusEl.textContent = "";
+
+    // Focus invalid required/email fields before running custom checks.
+    if (!form.reportValidity()) return;
 
     const payload = {
       name: form.name.value.trim(),
